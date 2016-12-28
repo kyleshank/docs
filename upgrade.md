@@ -187,7 +187,7 @@ Old                                                     | New
 `craft.elementIndexes.getSources()`                     | `craft.app.elementIndexes.sources`
 `craft.emailMessages.getAllMessages()`                  | `craft.emailMessages.allMessages`
 `craft.emailMessages.getMessage(key)`                   | `craft.app.emailMessages.getMessage(key)`
-`craft.entryRevisions.getDraftsByEntryId(id)`           | `craft.app.entryRevisions.getDraftsByEntryId()`
+`craft.entryRevisions.getDraftsByEntryId(id)`           | `craft.app.entryRevisions.getDraftsByEntryId(id)`
 `craft.entryRevisions.getEditableDraftsByEntryId(id)`   | `craft.entryRevisions.getEditableDraftsByEntryId(id)`
 `craft.entryRevisions.getDraftById(id)`                 | `craft.app.entryRevisions.getDraftById(id)`
 `craft.entryRevisions.getVersionsByEntryId(id)`         | `craft.app.entryRevisions.getVersionsByEntryId(id)`
@@ -207,7 +207,7 @@ Old                                                     | New
 `craft.globals.getTotalSets()`                          | `craft.app.globals.totalSets`
 `craft.globals.getTotalEditableSets()`                  | `craft.app.globals.totalEditableSets`
 `craft.globals.getSetById(id)`                          | `craft.app.globals.getSetById(id)`
-`craft.globals.getSetByHandle(handle)`                  | `craft.app.globals.getSetByHandle()`
+`craft.globals.getSetByHandle(handle)`                  | `craft.app.globals.getSetByHandle(handle)`
 `craft.i18n.getAllLocales()`                            | `craft.app.i18n.allLocales`
 `craft.i18n.getAppLocales()`                            | `craft.app.i18n.appLocales`
 `craft.i18n.getCurrentLocale()`                         | `craft.app.locale`
