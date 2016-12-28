@@ -20,16 +20,18 @@ Upgrading from Craft 2
 <a name="config"></a>
 ## Config Settings
 
-The following config settings have been renamed:
+The following config settings have been renamed or removed:
 
-Old                          | New
----------------------------- | -----------------------------
-`defaultFilePermissions`     | `defaultFileMode`<sup>1</sup>
-`defaultFolderPermissions`   | `defaultDirMode`
-`useWriteFileLock`           | `useFileLocks`
-`backupDbOnUpdate`           | `backupOnUpdate`<sup>2</sup>
-`restoreDbOnUpdateFailure`   | `restoreOnUpdateFailure`
-`activateAccountFailurePath` | `invalidUserTokenPath`
+File          | Old Setting                  | New Setting
+------------- | ---------------------------- | -----------------------------
+`general.php` | `defaultFilePermissions`     | `defaultFileMode`<sup>1</sup>
+`general.php` | `defaultFolderPermissions`   | `defaultDirMode`
+`general.php` | `useWriteFileLock`           | `useFileLocks`
+`general.php` | `backupDbOnUpdate`           | `backupOnUpdate`<sup>2</sup>
+`general.php` | `restoreDbOnUpdateFailure`   | `restoreOnUpdateFailure`
+`general.php` | `activateAccountFailurePath` | `invalidUserTokenPath`
+`db.php`      | `collation`                  | *(n/a)*
+`db.php`      | `initSQLs`                   | *(n/a)*
 
 *<sup>1</sup> `defaultFileMode` is now `null` by default, meaning it will be determined by the current environment.*
 
