@@ -64,7 +64,7 @@ If you have any URL rules saved in `craft/config/routes.php`, you will need to u
 
 - Named parameters in the pattern should be defined using the format (`<paramName:regex>`) rather than as a regular expression subpattern (`(?P<paramName>regex)`).
 - Controller action routes should be defined as a string (`'action/path'`) rather than an array with an `action` key (`['action' => 'action/path']`).
-- Templates should be defined as as an array with a `template` key (`['template' => 'template/path']`) rather than a string (`'template/path'`).
+- Template routes should be defined as as an array with a `template` key (`['template' => 'template/path']`) rather than a string (`'template/path'`).
 
 ```php
 // Old:
