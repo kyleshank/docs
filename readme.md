@@ -30,7 +30,7 @@ Craft 3 Documentation
 
 ## Plugin Development
 
-- Intro to Plugin Dev
+- [Intro to Plugin Dev](plugin-intro.md)
 - Coding Guidelines
 - Updating Plugins for Craft 3
 - Control Panel Templates
