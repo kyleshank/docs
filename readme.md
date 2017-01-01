@@ -6,7 +6,6 @@ Craft 3 Documentation
 - [About Craft CMS](introduction.md)
 - [Code of Conduct](coc.md)
 - [Upgrading from Craft 2](upgrade.md)
-- Contribution Guide
 
 ## Getting Started
 
