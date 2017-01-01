@@ -4,8 +4,8 @@ Intro to Plugin Dev
 - [What are Plugins?](#what-are-plugins)
 - [Getting Started](#getting-started)
   - [Setting up the basic file structure](#setting-up-the-basic-file-structure)
-  - [composer.json](#composer-json)
-  - [src/Plugin.php](#src-plugin-php)
+  - [composer.json](#composerjson)
+  - [src/Plugin.php](#srcpluginphp)
   - [Loading your plugin into Craft](#loading-your-plugin-into-craft)
 
 ## What are Plugins?
