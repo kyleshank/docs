@@ -129,10 +129,7 @@ To set this up, open your Craft project’s `composer.json` file and add a new `
 
 ```json
 {
-  // ...
-
   "repositories": [
-      // ...
       {
         "type": "path",
         "url": "../my-plugin"
