@@ -35,9 +35,11 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 ## Best Practices
 
 - Declare method argument types whenever possible.
+
     ```php
     public function foo(Entry $entry, array $settings)
     ```
+
 - Use strict comparison operators (`===` and `!==`) whenever possible.
 - Use `$foo === null`/`$bar !== null` rather than `is_null($foo)`/`!is_null($bar)`.
 - Use `(int)$foo`/`(float)$bar` rather than `intval($foo)`/`floatval($bar)`.
@@ -57,12 +59,14 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - Use `$str === ''` rather than `strlen($str) === 0` when checking if a string is empty.
 - Avoid using `array_merge()` within loops when possible.
 - Unset variables created by reference in foreach-loops after the loop is finished.
+
     ```php
     foreach ($array as &$value) {
         // ...
     }
     unset($value);
     ```
+
 - Use `implode()` rather than `join()`.
 - Use `in_array()` rather than `array_search(...) !== false` when the position of the needle isn’t needed.
 - Don’t use a `switch` statement when a single `if` condition will suffice.
