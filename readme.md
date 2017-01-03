@@ -31,7 +31,7 @@ Craft 3 Documentation
 ## Plugin Development
 
 - [Intro to Plugin Dev](plugin-intro.md)
-- Coding Guidelines
+- [Coding Guidelines](coding-guidelines.md)
 - Updating Plugins for Craft 3
 - Control Panel Templates
 - Widget Types
