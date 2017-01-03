@@ -193,7 +193,6 @@ Service methods that perform an action should generally follow the following con
 1. Perform **validation** on the model, if `$runValidation == true`
     - If validation fails, log the failure and return `false`
 2. Fire a **beforeX event**
-    - *(Note: We no longer care if *`*$event->isValid == false*`* )*
 3. Start a **DB transaction** and begin a `try`…`catch` block
     - *(Note: Only necessary if multiple things are about to be changed or if it’s an interface-oriented operation)*
 4. If it’s an interface-oriented operation so the model’s class isn’t known, call `beforeX()` on the model
