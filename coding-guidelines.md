@@ -4,6 +4,8 @@ Coding Guidelines
 Do your best to follow these guidelines when writing code for Craft and Craft plugins.
 
 - [Code Style](#code-style)
+- [Best Practices](#best-practices)
+- [Namespaces & Class Names](#namespaces--class-names)
 - [Method Names](#method-names)
 - [Docblocks](#docblocks)
   - [Interfaces vs. Implementation Classes](#interfaces-vs-implementation-classes)
@@ -29,6 +31,52 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - Strings that are concatenated across multiple lines should have the `.` operator at the ends of lines.
 - Don’t put a space after type typecasts (`(int)$foo`).
 - Put a blank line before `return` statements.
+
+## Best Practices
+
+- Declare method argument types whenever possible.
+    ```php
+    public function foo(Entry $entry, array $settings)
+    ```
+- Use strict comparison operators (`===` and `!==`) whenever possible.
+- Use `$foo === null`/`$bar !== null` rather than `is_null($foo)`/`!is_null($bar)`.
+- Use `(int)$foo`/`(float)$bar` rather than `intval($foo)`/`floatval($bar)`.
+- Always pass `true`/`false` to the third argument of [`in_array()`](http://php.net/manual/en/function.in-array.php) to indicate whether the check should be type-script (and make it `true` whenever possible).
+- Use `$obj->property !== null` rather than `isset($obj->property)` in conditions that check if an object property is set.
+- Use `empty()`/`!empty()` in conditions that check if an array is/isn’t empty.
+- Refer to class names using the [`::class` keyword](http://php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class.class) (`Foo::class`) rather than as a string (`'some\nmspace\Foo'`) or Yii’s [`::className()`](http://www.yiiframework.com/doc-2.0/yii-base-object.html#className()-detail) static method (which is going to be removed in Yii 2.1).
+- Initialize arrays explicitly (`$array = []`) rather than implicitly (e.g. `$array[] = 'foo'` where `$array` wasn’t defined yet).
+- Use `self::_foo()` rather than `static::_foo()` when calling private static functions, since `static::` would break if the class is extended.
+- Use `self::CONSTANT` rather than `static::CONSTANT` (unnecessary overhead).
+- Only use the `parent::` keyword when calling a parent method with the exact same name as the current method. Otherwise use `$this->`.
+- Always specify the visibility of class properties and methods (`public`, `protected`, or `private`).
+- Private class property/method names should begin with an underscore (`private $_foo`).
+- Don’t explicitly set class properties’ default values to `null` (e.g. `public $foo = null;`).
+- Always use `require` or `include` when including a file that returns something, rather than `require_once` or `include_once`.
+- Use `strpos($foo, $bar) === 0` rather than `strncmp($foo, $bar, $barLength) === 0` when checking if one string begins with another string, for short strings.
+- Use `$str === ''` rather than `strlen($str) === 0` when checking if a string is empty.
+- Avoid using `array_merge()` within loops when possible.
+- Unset variables created by reference in foreach-loops after the loop is finished.
+    ```php
+    foreach ($array as &$value) {
+        // ...
+    }
+    unset($value);
+    ```
+- Use `implode()` rather than `join()`.
+- Use `in_array()` rather than `array_search(...) !== false` when the position of the needle isn’t needed.
+- Don’t use a `switch` statement when a single `if` condition will suffice.
+- Use single quotes (`'`) whenever double quotes (`"`) aren’t needed.
+- Use shortcut operators (`+=`, `-=`, `*=`, `/=`, `%=`, `.=`, etc.) whenever possible.
+- Use shortcut regex patterns (`\d`, `\D`, `\w`, `\W`, etc.) whenever possible.
+- Use the `DIRECTORY_SEPARATOR` constant rather than `'/'` when defining file paths.
+
+## Namespaces & Class Names
+
+- Follow the [PSR-4](http://www.php-fig.org/psr/psr-4/) specification, where a class’s file location can be inferred by its fully qualified name, given a known base namespace mapped to a base path.
+- Namespaces should be all-lowercase.
+- Class names should be `StudlyCase`.
+- Only first party code should use the `craft\` and `pixelandtonic\` namespace roots. Third party plugins should use a namespace root that refers to the vendor name and plugin name (e.g. `acme\pluginhandle\`).
 
 ## Method Names
 
