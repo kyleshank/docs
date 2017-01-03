@@ -4,13 +4,13 @@ Coding Guidelines
 Do your best to follow these guidelines when writing code for Craft and Craft plugins.
 
 - [Code Style](#code-style)
+- [Method Names](#method-names)
+- [Docblocks](#docblocks)
+  - [Interfaces vs. Implementation Classes](#interfaces-vs-implementation-classes)
 - [Control Flow](#control-flow)
   - [Happy Paths](#happy-paths)
   - [`if`…`return`…`else`](#ifreturnelse)
   - [Service Action Methods](#service-action-methods)
-- [Docblocks](#docblocks)
-  - [Interfaces vs. Implementation Classes](#interfaces-vs-implementation-classes)
-- [Method Names](#method-names)
 - [Controllers](#controllers)
   - [Return Types](#return-types)
   - [JSON Actions](#json-actions)
@@ -18,6 +18,7 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - [DB Queries](#db-queries)
   - [Conditions](#conditions)
 - [Getters & Setters](#getters--setters)
+  - [App Component Getters](#app-component-getters)
 
 ## Code Style
 
@@ -26,7 +27,64 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - Don’t fret too much over line lengths. Focus on readability.
 - Chained method calls should each be placed on their own line, with the `->` operator at the beginning of each line.
 - Strings that are concatenated across multiple lines should have the `.` operator at the ends of lines.
+- Don’t put a space after type typecasts (`(int)$foo`).
 - Put a blank line before `return` statements.
+
+## Method Names
+
+Getter methods (methods whose primary responsibility is to return something, rather than do something) that **don’t accept any arguments** should begin with `get` , and there should be a corresponding `@property` tag in the class’s docblock to document the corresponding magic getter property.
+
+- `getAuthor()`
+- `getIsSystemOn()`
+- `getHasFreshContent()`
+
+Getter methods that **accept one or more arguments** (regardless of whether they can be omitted) should only begin with `get` if it “sounds right”.
+
+- `getError($attribute)`
+- `hasErrors($attribute = null)`
+
+Static methods should generally not start with `get`.
+
+  - `className()`
+  - `displayName()`
+
+## Docblocks
+
+- Methods that override subclass methods or implement an interface method, and don’t have anything relevant to add to the docblock, should only have `@inheritdoc` in the docblock.
+- Use full sentences with proper capitalization, grammar, and punctuation in docblock descriptions.
+- `@param` and `@return` tags should **not** have proper capitalization or punctuation.
+- Use `boolean` and `integer` instead of `bool` and `int` in type declarations.
+- Specify array members’ class names in array type declarations when it makes sense (`ElementInterface[]` rather than `array`).
+- Chainable functions that return an instance of the current class should use `static` as the return type declaration.
+- Functions that don’t ever return anything should have `@return void`.
+
+### Interfaces vs. Implementation Classes
+
+`@param` , `@return` , `@var` , `@method` and `@property` tags on public service methods should reference Interfaces (when applicable), not their implementation class:
+
+```php
+// Bad:
+/**
+ * @param Element $element
+ * @param ElementInterface|Element $element
+ */
+
+// Better:
+/**
+ * @param ElementInterface $element
+ */
+```
+
+Inline `@var` tags should reference implementation classes, not their interfaces:
+
+```php
+// Bad:
+/** @var ElementInterface $element */
+/** @var ElementInterface|Element $element */
+
+// Better:
+/** @var Element $element */
+```
 
 ## Control Flow
 
@@ -181,62 +239,6 @@ public function saveField(FieldInterface $field, $runValidation = true)
 }
 ```
 
-## Docblocks
-
-- Methods that override subclass methods or implement an interface method, and don’t have anything relevant to add to the docblock, should only have `@inheritdoc` in the docblock.
-- Use full sentences with proper capitalization, grammar, and punctuation in docblock descriptions.
-- `@param` and `@return` tags should **not** have proper capitalization or punctuation.
-- Use `boolean` and `integer` instead of `bool` and `int` in type declarations.
-- Specify array members’ class names in array type declarations when it makes sense (`ElementInterface[]` rather than `array`).
-- Chainable functions that return an instance of the current class should use `static` as the return type declaration.
-- Functions that don’t ever return anything should have `@return void`.
-
-### Interfaces vs. Implementation Classes
-
-`@param` , `@return` , `@var` , `@method` and `@property` tags on public service methods should reference Interfaces (when applicable), not their implementation class:
-
-```php
-// Bad:
-/**
- * @param Element $element
- * @param ElementInterface|Element $element
- */
-
-// Better:
-/**
- * @param ElementInterface $element
- */
-```
-
-Inline `@var` tags should reference implementation classes, not their interfaces:
-
-```php
-// Bad:
-/** @var ElementInterface $element */
-/** @var ElementInterface|Element $element */
-
-// Better:
-/** @var Element $element */
-```
-
-## Method Names
-
-Getter methods (methods whose primary responsibility is to return something, rather than do something) that **don’t accept any arguments** should begin with `get` , and there should be a corresponding `@property` tag in the class’s docblock to document the corresponding magic getter property.
-
-- `getAuthor()`
-- `getIsSystemOn()`
-- `getHasFreshContent()`
-
-Getter methods that **accept one or more arguments** (regardless of whether they can be omitted) should only begin with `get` if it “sounds right”.
-
-- `getError($attribute)`
-- `hasErrors($attribute = null)`
-
-Static methods should generally not start with `get`.
-
-  - `className()`
-  - `displayName()`
-
 ## Controllers
 
 ### Return Types
@@ -310,17 +312,53 @@ $query->innerJoin('{{%bar}} bar', '[[bar.fooId]] = [[foo.id]]');
 
 ## Getters & Setters
 
-For a slight performance improvement and easier debugging, call getter methods directly rather than going through the magic property.
+Getter and setter methods should have a corresponding `@property` tag in the class’s docblock, so IDEs like PhpStorm can be aware of the magic properties.
+
+```php
+/**
+ * @property User $author
+ */
+class Entry
+{
+    private $_author;
+
+    /**
+     * @return User
+     */
+    public function getAuthor()
+    {
+        return $this->_author;
+    }
+}
+```
+
+For a slight performance improvement and easier debugging, you should generally stick with calling the getter and setter methods directly rather than going through their magic properties.
 
 ```php
 // Bad:
-$author = $entry->author;
+$oldAuthor = $entry->author;
+$entry->author = $newAuthor;
 
 // Better:
-$author = $entry->getAuthor();
+$oldAuthor = $entry->getAuthor();
+$entry->setAuthor($newAuthor);
 ```
 
-This goes for app component getters, too:
+### App Component Getters
+
+App components should have their own getter functions, which call the app component getter method [`get()`](http://www.yiiframework.com/doc-2.0/yii-di-servicelocator.html#get()-detail) directly:
+
+```php
+/**
+ * @return Entries
+ */
+public function getEntries()
+{
+    return $this->get('entries');
+}
+```
+
+And you should use those instead of their magic properties:
 
 ```php
 // Bad:
