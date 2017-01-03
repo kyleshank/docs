@@ -75,6 +75,8 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - Use shortcut regex patterns (`\d`, `\D`, `\w`, `\W`, etc.) whenever possible.
 - Use the `DIRECTORY_SEPARATOR` constant rather than `'/'` when defining file paths.
 
+> {tip} The [Php Inspections (EA Extended)](https://plugins.jetbrains.com/idea/plugin/7622-php-inspections-ea-extended-) PhpStorm plugin can help you locate and fix these sorts of best practice issues.
+
 ## Namespaces & Class Names
 
 - Follow the [PSR-4](http://www.php-fig.org/psr/psr-4/) specification, where a class’s file location can be inferred by its fully qualified name, given a known base namespace mapped to a base path.
