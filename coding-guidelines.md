@@ -6,7 +6,7 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - [Code Style](#code-style)
 - [Control Flow](#control-flow)
   - [Happy Paths](#happy-paths)
-  - [`if`…`return`…`else`](#if-return-else)
+  - [`if`…`return`…`else`](#ifreturnelse)
   - [Service Action Methods](#service-action-methods)
 - [Docblocks](#docblocks)
   - [Interfaces vs. Implementation Classes](#interfaces-vs-implementation-classes)
@@ -17,7 +17,7 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - [Exceptions](#exceptions)
 - [DB Queries](#db-queries)
   - [Conditions](#conditions)
-- [Getters & Setters](#getters-setters)
+- [Getters & Setters](#getters--setters)
 
 ## Code Style
 
