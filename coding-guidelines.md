@@ -187,53 +187,108 @@ if ($condition) {
 return $bar;
 ```
 
-## Service Action Methods
+## Model Action Methods
 
-Service methods that perform an action should generally follow the following control flow:
+There are two common types of service methods that perform an action for a given model:
+ 
+- **Class-oriented actions** have methods that perform an action for a *specific class* (e.g. `craft\models\FieldGroup`). In this case, all of the logic that needs to be performed is known ahead of time, so it’s not necessary to call `beforeX()` and `afterX()` methods on the model.
+- **Interface-oriented actions** have methods that perform an action for an *interface* (e.g. `craft\base\FieldInterface`), so the exact class is not known. In this case, the class that implements the interface may need to perform some custom logic for the action, so the method should call `beforeX()` and `afterX()` methods on the model.
 
-1. Perform **validation** on the model, if `$runValidation == true`
-    - If validation fails, log the failure and return `false`
-2. Fire a **beforeX event**
-3. Start a **DB transaction** and begin a `try`…`catch` block
-    - *(Note: Only necessary if multiple things are about to be changed or if it’s an interface-oriented operation)*
-4. If it’s an interface-oriented operation so the model’s class isn’t known, call `beforeX()` on the model
-    - If `beforeX()` returns `false`, then rollback the transaction and return `false`
-5. **Perform the operation**
-    - *(Note: there should be no additional validation at this point, since we’ve already dealt with that in step 1.)*
-6. If it’s an interface-oriented operation, call `afterX()` on the model
-7. If a DB transaction was created, commit it and close out the `try`…`catch` block
-8. Fire an `afterX` event
-9. Return `true`
+Here are control flow diagrams that demonstrate the differences between the two:
 
-#### Example 1: Class-oriented operation
+```                                                                                                                                                                          
+                                Class-Oriented Action                                                              Interface-Oriented Action                     
+                                                                                                                                                                 
+                   ┌────────────────────────────────────────────┐                             ┌─────────────────────────────────────────────────────────────────┐
+                   │ saveRecipe(Recipe $recipe, $runValidation) │                             │ saveIngredient(IngredientInterface $ingredient, $runValidation) │
+                   └────────────────────────────────────────────┘                             └─────────────────────────────────────────────────────────────────┘
+                                          │                                                                                    │                                 
+                                          ▼                                                                                    ▼                                 
+                                          Λ                                                                                    Λ                                 
+                                         ╱ ╲                                                                                  ╱ ╲                                
+                                        ╱   ╲                                                                                ╱   ╲                               
+                      ┌────────$runValidation == true?─────┐                                               ┌────────$runValidation == true?─────┐                
+                      │                 ╲   ╱              │                                               │                 ╲   ╱              │                
+                     yes                 ╲ ╱               │                                              yes                 ╲ ╱               │                
+                      │                   V                │                                               │                   V                │                
+                      ▼                                    │                                               ▼                                    │                
+                      Λ                                    │                                               Λ                                    │                
+                     ╱ ╲                                   │                                              ╱ ╲                                   │                
+                    ╱   ╲                                 no                                             ╱   ╲                                 no                
+        ┌──  $recipe->validate()  ─┐                       │                                 ┌──$ingredient->validate()┐                        │                
+        │           ╲   ╱          │                       │                                 │           ╲   ╱         │                        │                
+      false          ╲ ╱      not false                    ▼                               false          ╲ ╱      not false                    ▼                
+        │             V            │          ┌────────────────────────┐                     │             V           │         ┌────────────────────────────┐  
+        ▼                          └─────────▶│ beforeSaveRecipe event │                     ▼                         └────────▶│ beforeSaveIngredient event │  
+┌──────────────┐                              └────────────────────────┘             ┌──────────────┐                            └────────────────────────────┘  
+│ return false │                                           │                         │ return false │                                           │                
+└──────────────┘                                           ▼                         └──────────────┘                                           ▼                
+                                                 ┌───────────────────┐                                                                ┌───────────────────┐      
+                                                 │ begin transaction │                                                                │ begin transaction │      
+                                                 └───────────────────┘                                                                └───────────────────┘      
+                                                           │                                                                                    │                
+                                                           │                                                                                    ▼                
+                                                           │                                                                                    Λ                
+                                                           │                                                                                   ╱ ╲               
+                                                           │                                                                                  ╱   ╲              
+                                                           │                                                 ┌───────────────────────$ingredient->beforeSave     
+                                                           │                                                 │                                ╲   ╱              
+                                                           │                                               false                               ╲ ╱               
+                                                           │                                                 │                                  V                
+                                                           │                                                 ▼                                  │                
+                                                           │                                        ┌─────────────────┐                     not false            
+                                                           │                                        │    rollback     │                         │                
+                                                           ▼                                        │   transaction   │                         ▼                
+                                                 ┌───────────────────┐                              └─────────────────┘              ┌─────────────────────┐     
+                                                 │  save the recipe  │                                       │                       │ save the ingredient │     
+                                                 └───────────────────┘                                       ▼                       └─────────────────────┘     
+                                                           │                                         ┌──────────────┐                           │                
+                                                           │                                         │ return false │                           ▼                
+                                                           │                                         └──────────────┘             ┌──────────────────────────┐   
+                                                           │                                                                      │ $ingredient->afterSave() │   
+                                                           │                                                                      └──────────────────────────┘   
+                                                           │                                                                                    │                
+                                                           ▼                                                                                    ▼                
+                                                  ┌─────────────────┐                                                                  ┌─────────────────┐       
+                                                  │ end transaction │                                                                  │ end transaction │       
+                                                  └─────────────────┘                                                                  └─────────────────┘       
+                                                           │                                                                                    │                
+                                                           ▼                                                                                    ▼                
+                                                ┌─────────────────────┐                                                              ┌─────────────────────┐     
+                                                │ afterSaveIngredient │                                                              │ afterSaveIngredient │     
+                                                │        event        │                                                              │        event        │     
+                                                └─────────────────────┘                                                              └─────────────────────┘     
+```
+
+#### Example 1: Class-oriented action
 
 This is an example of how to save a thing that needs to be of a certain class, where `beforeX()` and `afterX()` methods are not necessary on the model.
 
 ```php
-public function saveGroup(FieldGroup $group, $runValidation = true)
+public function saveRecipe(Recipe $recipe, $runValidation = true)
 {
-    if ($runValidation && !$group->validate()) {
-        Craft::info('Field group not saved due to validation error.', __METHOD__);
+    if ($runValidation && !$recipe->validate()) {
+        Craft::info('Recipe not saved due to validation error.', __METHOD__);
 
         return false;
     }
 
-    $isNewGroup = !$group->id;
+    $isNewRecipe = !$recipe->id;
 
-    // Fire a 'beforeSaveFieldGroup' event
-    $this->trigger(self::EVENT_BEFORE_SAVE_FIELD_GROUP, new FieldGroupEvent([
-        'group' => $group,
-        'isNew' => $isNewGroup,
+    // Fire a 'beforeSaveRecipe' event
+    $this->trigger(self::EVENT_BEFORE_SAVE_RECIPE, new RecipeEvent([
+        'recipe' => $recipe,
+        'isNew' => $isNewRecipe,
     ]));
 
     // ...
-    // Save the field group here
+    // Save the recipe here
     // ...
 
-    // Fire an 'afterSaveFieldGroup' event
-    $this->trigger(self::EVENT_AFTER_SAVE_FIELD_GROUP, new FieldGroupEvent([
-        'group' => $group,
-        'isNew' => $isNewGroup,
+    // Fire an 'afterSaveRecipe' event
+    $this->trigger(self::EVENT_AFTER_SAVE_RECIPE, new RecipeEvent([
+        'recipe' => $recipe,
+        'isNew' => $isNewRecipe,
     ]));
 
     return true;
@@ -245,36 +300,36 @@ public function saveGroup(FieldGroup $group, $runValidation = true)
 This is an example of how to save a thing that needs to be of a certain interface, but the actual class is not known.
 
 ```php
-public function saveField(FieldInterface $field, $runValidation = true)
+public function saveIngredient(IngredientInterface $ingredient, $runValidation = true)
 {
-    /** @var Field $field */
+    /** @var Ingredient $ingredient */
 
-    if ($runValidation && !$field->validate()) {
-        Craft::info('Field not saved due to validation error.', __METHOD__);
+    if ($runValidation && !$ingredient->validate()) {
+        Craft::info('Ingredient not saved due to validation error.', __METHOD__);
 
         return false;
     }
 
-    $isNewField = !$field->id;
+    $isNewIngredient = !$ingredient->id;
 
-    // Fire a 'beforeSaveField' event
-    $this->trigger(self::EVENT_BEFORE_SAVE_FIELD, new FieldEvent([
-        'field' => $field,
-        'isNew' => $isNewField,
+    // Fire a 'beforeSaveIngredient' event
+    $this->trigger(self::EVENT_BEFORE_SAVE_INGREDIENT, new IngredientEvent([
+        'ingredient' => $ingredient,
+        'isNew' => $isNewIngredient,
     ]));
 
     $transaction = Craft::$app->getDb()->beginTransaction();
 
     try {
-        if (!$field->beforeSave()) {
+        if (!$ingredient->beforeSave()) {
             $transaction->rollback();
 
             return false;
         }
 
-        // ... Save the field here ...
+        // ... Save the ingredient here ...
 
-        $field->afterSave();
+        $ingredient->afterSave();
 
         $transaction->commit();
     } catch (\Exception $e) {
@@ -283,10 +338,10 @@ public function saveField(FieldInterface $field, $runValidation = true)
         throw $e;
     }
 
-    // Fire an 'afterSaveField' event
-    $this->trigger(self::EVENT_AFTER_SAVE_FIELD, new FieldEvent([
-        'field' => $field,
-        'isNew' => $isNewField,
+    // Fire an 'afterSaveIngredient' event
+    $this->trigger(self::EVENT_AFTER_SAVE_INGREDIENT, new IngredientEvent([
+        'ingredient' => $ingredient,
+        'isNew' => $isNewIngredient,
     ]));
 
     return true;
