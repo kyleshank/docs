@@ -196,7 +196,7 @@ There are two common types of service methods that perform an action for a given
 
 Here are control flow diagrams that demonstrate the differences between the two:
 
-```                                                                                                                                                                          
+```
                                 Class-Oriented Action                                                              Interface-Oriented Action                     
                                                                                                                                                                  
                    ┌────────────────────────────────────────────┐                             ┌─────────────────────────────────────────────────────────────────┐
@@ -254,10 +254,10 @@ Here are control flow diagrams that demonstrate the differences between the two:
                                                   └─────────────────┘                                                                  └─────────────────┘       
                                                            │                                                                                    │                
                                                            ▼                                                                                    ▼                
-                                                ┌─────────────────────┐                                                              ┌─────────────────────┐     
-                                                │ afterSaveIngredient │                                                              │ afterSaveIngredient │     
-                                                │        event        │                                                              │        event        │     
-                                                └─────────────────────┘                                                              └─────────────────────┘     
+                                                  ┌─────────────────┐                                                                ┌─────────────────────┐     
+                                                  │ afterSaveRecipe │                                                                │ afterSaveIngredient │     
+                                                  │      event      │                                                                │        event        │     
+                                                  └─────────────────┘                                                                └─────────────────────┘     
 ```
 
 #### Example 1: Class-oriented action
