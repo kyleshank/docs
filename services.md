@@ -143,9 +143,7 @@ public function saveRecipe(Recipe $recipe, $runValidation = true)
         'isNew' => $isNewRecipe,
     ]));
 
-    // ...
-    // Save the recipe here
-    // ...
+    // ... Save the recipe here ...
 
     // Fire an 'afterSaveRecipe' event
     $this->trigger(self::EVENT_AFTER_SAVE_RECIPE, new RecipeEvent([
