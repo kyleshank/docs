@@ -12,7 +12,7 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - [Control Flow](#control-flow)
   - [Happy Paths](#happy-paths)
   - [`if`…`return`…`else`](#ifreturnelse)
-  - [Service Action Methods](#service-action-methods)
+  - [Model Action Methods](#model-action-methods)
 - [Controllers](#controllers)
   - [Return Types](#return-types)
   - [JSON Actions](#json-actions)
