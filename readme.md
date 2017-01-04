@@ -27,6 +27,7 @@ Craft 3 Documentation
 - Searching
 - Sites and Localization
 - Templates
+- Content Migrations
 
 ## Plugin Development
 
@@ -34,9 +35,11 @@ Craft 3 Documentation
 - [Coding Guidelines](coding-guidelines.md)
 - Updating Plugins for Craft 3
 - Control Panel Templates
+- [Services](services.md)
 - Widget Types
 - Field Types
 - Element Types
 - Element Actions
 - Volume Types
 - Custom Component Types
+- Migrations
