@@ -6,6 +6,7 @@ Upgrading from Craft 2
 - [URL Rules](#url-rules)
 - [PHP Constants](#php-constants)
 - [Static Translation Files](#static-translation-files)
+- [Remote Volumes](#remote-volumes)
 - [User Photos](#user-photos)
 - [Template Tags](#template-tags)
 - [Template Functions](#template-functions)
@@ -108,6 +109,14 @@ craft/
       app.php
       site.php
 ```
+
+## Remote Volumes
+
+Support for Amazon S3, Rackspace Cloud Files, and Google Cloud Storage have been moved into plugins. If you have any asset volumes that were using those services in Craft 2, you will need to install the new plugins:
+
+- [Amazon S3](https://github.com/craftcms/aws-s3)
+- [Rackspace Cloud Files](https://github.com/craftcms/rackspace)
+- *Google Cloud Storage coming soon*  
 
 ## User Photos
 
