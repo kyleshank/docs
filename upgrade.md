@@ -8,6 +8,7 @@ Upgrading from Craft 2
 - [Static Translation Files](#static-translation-files)
 - [Remote Volumes](#remote-volumes)
 - [User Photos](#user-photos)
+- [Twig 2](#twig-2)
 - [Template Tags](#template-tags)
 - [Template Functions](#template-functions)
 - [Date Formatting](#date-formatting)
@@ -130,6 +131,50 @@ Here’s how you can resolve this:
     - Enable the “Assets in this volume have public URLs” setting
     - Set the correct URL setting for the folder
     - Save the volume
+
+## Twig 2
+
+Craft 3 uses Twig 2, which has its own breaking changes for templates:
+
+#### Macros
+
+Twig 1 let you call macros defined by the same template using `_self.macroName()`:
+ 
+```twig
+{% macro foo %}...{% endmacro %}
+
+{{ _self.foo() }}
+```
+
+Twig 2 requires you to explicitly import them first:
+
+```twig
+Import just one macro:
+{% from _self import foo %}
+{{ foo() }}
+
+Or all of them:
+{% import _self as macros %}
+{{ macros.foo() }}
+```
+
+#### Undefined Blocks
+
+Twig 1 let you call `block()` even for blocks that didn’t exist:
+ 
+```twig
+{% if block('foo') is not empty %}
+    {{ block('foo') }}
+{% endif %}
+```
+
+Twig 2 will throw an error unless it’s a `defined` test:
+
+```twig
+{% if block('foo') is defined %}
+    {{ block('foo') }}
+{% endif %}
+```
 
 ## Template Tags
 
