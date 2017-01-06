@@ -27,6 +27,7 @@ Do your best to follow these guidelines when writing code for Craft and Craft pl
 - Use the short array syntax (`['foo' => 'bar']`).
 - Don’t fret too much over line lengths. Focus on readability.
 - Chained method calls should each be placed on their own line, with the `->` operator at the beginning of each line.
+- Conditions that span multiple lines should have logical operators (`||`, `&&`, etc.) at the end of lines.
 - Strings that are concatenated across multiple lines should have the `.` operator at the ends of lines.
 - Don’t put a space after type typecasts (`(int)$foo`).
 - Don’t wrap `include`/`include_once`/`require`/`require_once` file paths in parentheses. They are not functions.
