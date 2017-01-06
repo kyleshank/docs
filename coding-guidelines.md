@@ -108,7 +108,7 @@ Static methods should generally not start with `get`.
 - Methods that override subclass methods or implement an interface method, and don’t have anything relevant to add to the docblock, should only have `@inheritdoc` in the docblock.
 - Use full sentences with proper capitalization, grammar, and punctuation in docblock descriptions.
 - `@param` and `@return` tags should **not** have proper capitalization or punctuation.
-- Use `boolean` and `integer` instead of `bool` and `int` in type declarations.
+- Use `bool` and `int` instead of `boolean` and `integer` in type declarations.
 - Specify array members’ class names in array type declarations when it makes sense (`ElementInterface[]` rather than `array`).
 - Chainable functions that return an instance of the current class should use `static` as the return type declaration.
 - Functions that don’t ever return anything should have `@return void`.
