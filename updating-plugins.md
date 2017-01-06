@@ -97,7 +97,7 @@ $result = Craft::$app->db->createCommand()
 
 ## Files
 
-- `Craft\IOHelper` has been replaced with `craft\helpers\FileHelper`, with extends Yii’s `yii\helpers\BaseFileHelper`.
+- `Craft\IOHelper` has been replaced with `craft\helpers\FileHelper`, which extends Yii’s `yii\helpers\BaseFileHelper`.
 - Directory paths returned by `craft\helpers\FileHelper` and `craft\services\Path` methods no longer include a trailing slash.
 - File system paths in Craft now use the `DIRECTORY_SEPARATOR` PHP constant (which is set to either `/` or `\` depending on the environment) rather than hard-coded forward slashes (`/`).
 
