@@ -1,9 +1,17 @@
 Updating Plugins for Craft 3
 ============================
 
-The general concept of plugins and plugin-supplied component types remains mostly the same in Craft 3, but all the implementation details have changed.
+Craft 3 is a complete rewrite of the CMS, built on Yii 2. Due to the scope of changes in Yii 2, there was no feasible way to port Craft to it without breaking every plugin in the process. So we took it as an [opportunity](http://www.urbandictionary.com/define.php?term=double%20transgression%20theory) to refactor several major areas of the system.
 
-Before reading through this guide, make sure you’ve read through [Upgrading from Craft 2](upgrade.md) and [Intro to Plugin Dev](plugin-intro.md).
+The primary goals of the refactoring were:
+
+- Establish new [coding guidelines and best practices](coding-guidelines.md), optimizing for performance, clarity, and maintainability.
+- Identify areas where Craft was needlessly reinventing the wheel, and stop doing that.
+- Support modern development toolkits (Composer, PostgreSQL, etc.).
+
+The end result is a faster, leaner, and much more elegant codebase for core development and plugin development alike. We hope you enjoy it.
+
+Before reading through this guide, make sure you’ve read through [Upgrading from Craft 2](upgrade.md) and [Intro to Plugin Dev](plugin-intro.md) for some background info about developing plugins and sites with Craft 3.
 
 - [High Level Notes](#high-level-notes)
 - [Service Names](#service-names)
@@ -20,10 +28,11 @@ Before reading through this guide, make sure you’ve read through [Upgrading fr
   
 ## High Level Notes
 
+- The main application instance is available via `Craft::$app` now, rather than `craft()`.
 - Plugins must now have a `composer.json` file that defines some basic info about the plugin.
 - Plugins now get their own root namespace, rather than sharing a `Craft\` namespace with all of Craft and other plugins, and all Craft and plugin code must follow the [PSR-4](http://www.php-fig.org/psr/psr-4/) specification.
 - Plugins are now an extension of [Yii modules](http://www.yiiframework.com/doc-2.0/guide-structure-modules.html).
-- The main application instance is available via `Craft::$app` now, rather than `craft()`.
+
 
 ## Service Names
 
