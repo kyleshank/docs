@@ -155,3 +155,5 @@ Plugins can provide an icon, which will be visible on the Settings → Plugins p
 <img src="assets/plugin-index.png" width="1159" alt="The Settings → Plugins page in Craft’s Control Panel.">
 
 Plugin icons must be square SVG files, saved as `icon.svg` at the root of your plugin’s source directory (e.g `src/`).
+
+If your plugin has a [Control Panel section](cp-templates.md), you can also give its global nav item a custom icon by saving an `icon-mask.svg` file in the root of your plugin’s source directory. Note that this icon cannot contain strokes, and will always be displayed in a solid color (respecting alpha transparency).
