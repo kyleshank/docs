@@ -7,6 +7,7 @@ Intro to Plugin Dev
   - [composer.json](#composerjson)
   - [`src/Plugin.php`](#srcpluginphp)
   - [Loading your plugin into Craft](#loading-your-plugin-into-craft)
+- [Plugin Icons](#plugin-icons)
 
 ## What are Plugins?
 
@@ -146,3 +147,11 @@ In your terminal, go to your Craft project and tell Composer to require your plu
 ```
 
 > {note} One caveat of `path` Composer repositories is that Composer is not too smart about keeping their dependencies updated when calling `composer update`. You may need to remove and re-require your plugin in your Craft project each time its dependencies change. 
+
+## Plugin Icons
+
+Plugins can provide an icon, which will be visible on the Settings → Plugins page.
+ 
+<img src="assets/plugin-index.png" width="1159" height="628" alt="The Settings → Plugins page in Craft’s Control Panel.">
+
+Plugin icons must be square SVG files, saved as `icon.svg` at the root of your plugin’s source directory (e.g `src/`).
