@@ -5,7 +5,7 @@ Intro to Plugin Dev
 - [Getting Started](#getting-started)
   - [Setting up the basic file structure](#setting-up-the-basic-file-structure)
   - [composer.json](#composerjson)
-  - [src/Plugin.php](#srcpluginphp)
+  - [`src/Plugin.php`](#srcpluginphp)
   - [Loading your plugin into Craft](#loading-your-plugin-into-craft)
 
 ## What are Plugins?
@@ -29,9 +29,9 @@ To create a plugin, create a new directory wherever you like to work on developm
 
 ```
 base_dir/
-    composer.json
-    src/
-        Plugin.php
+  composer.json
+  src/
+    Plugin.php
 ```
 
 > {tip} It doesn’t matter what name you give the root directory. Choose something that makes sense.
@@ -78,7 +78,7 @@ Replace:
 
 > {note} Your plugin’s name and handle must both be unique to be included in the Craft Plugin Store.
 
-### src/Plugin.php
+### `src/Plugin.php`
 
 The `src/Plugin.php` file is your plugin’s primary class. It will get instantiated at the beginning of every request. Its `init()` method is the best place to register event listeners, and any other steps it needs to take to initialize itself.
 
