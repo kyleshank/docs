@@ -107,17 +107,17 @@ Replace `root\namespace` with the namespace you chose in your `composer.json` fi
 
 There are two ways to make your plugin visible to Craft:
  
-1. Move/symlink the plugin into your `craft/plugins/` folder
+1. Move/symlink the plugin into your `plugins/` folder
 2. Set your plugin up as a Composer dependency
 
-#### Move/symlink the plugin into your `craft/plugins/` folder
+#### Move/symlink the plugin into your `plugins/` folder
 
 This route is simpler, but it’s only practical if your plugin isn’t going to have any of its own Composer dependencies (besides Craft itself).
 
-In your terminal, go to your Craft project’s `craft/plugins/` folder and create a symlink to your plugin’s root directory. The symlink should be named identically to your plugin’s handle.
+In your terminal, go to your Craft project’s `plugins/` folder and create a symlink to your plugin’s root directory. The symlink should be named identically to your plugin’s handle.
 
 ```
-> cd ~/dev/my-craft-project/craft/plugins
+> cd ~/dev/my-craft-project/plugins
 > ln -s ~/dev/my-plugin pluginhandle
 ```
 

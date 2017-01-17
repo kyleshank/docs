@@ -40,7 +40,7 @@ File          | Old Setting                  | New Setting
 
 ## Redactor Configs
 
-Your Redactor configs in `craft/config/redactor/` must now be valid JSON. That means:
+Your Redactor configs in `config/redactor/` must now be valid JSON. That means:
 
 - No comments
 - All object properties (the config setting names) must be wrapped in double quotes
@@ -61,7 +61,7 @@ Your Redactor configs in `craft/config/redactor/` must now be valid JSON. That m
 
 ## URL Rules
 
-If you have any URL rules saved in `craft/config/routes.php`, you will need to update them to Yii 2’s [pattern-route syntax](http://www.yiiframework.com/doc-2.0/guide-runtime-routing.html#url-rules).
+If you have any URL rules saved in `config/routes.php`, you will need to update them to Yii 2’s [pattern-route syntax](http://www.yiiframework.com/doc-2.0/guide-runtime-routing.html#url-rules).
 
 - Named parameters in the pattern should be defined using the format (`<paramName:regex>`) rather than as a regular expression subpattern (`(?P<paramName>regex)`).
 - Controller action routes should be defined as a string (`'action/path'`) rather than an array with an `action` key (`['action' => 'action/path']`).
@@ -90,7 +90,7 @@ Old              | New
 
 ## Static Translation Files
 
-Craft 3 still supports [static translations](https://craftcms.com/support/static-translations), but the directory structure has changed. Now within your craft/translations/ folder, you should create subdirectories for each locale, and within them, PHP files for each **translation category**.
+Craft 3 still supports [static translations](https://craftcms.com/support/static-translations), but the directory structure has changed. Now within your `translations/` folder, you should create subdirectories for each locale, and within them, PHP files for each **translation category**.
 
 The acceptable translation categories are:
 
@@ -101,14 +101,13 @@ Category       | Description
 `site`         | custom site-specific translation messages
 `pluginhandle` | Plugins’ translation messages
 
-In Craft 3, your craft/translations/ folder might look something like this:
+In Craft 3, your `translations/` folder might look something like this:
 
 ```
-craft/
-  translations/
-    en-US/
-      app.php
-      site.php
+translations/
+  en-US/
+    app.php
+    site.php
 ```
 
 ## Remote Volumes
@@ -121,11 +120,11 @@ Support for Amazon S3, Rackspace Cloud Files, and Google Cloud Storage have been
 
 ## User Photos
 
-User photos are stored as assets now. When upgrading to Craft 3, Craft will automatically create a new asset volume called “User Photos”, set to the craft/storage/userphotos/ folder, where Craft previously stored all user photos. However this folder is be above your web root and inaccessible to HTTP requests, so until you make this volume publicly accessible, user photos will not work on the front end.
+User photos are stored as assets now. When upgrading to Craft 3, Craft will automatically create a new asset volume called “User Photos”, set to the `storage/userphotos/` folder, where Craft previously stored all user photos. However this folder is be above your web root and inaccessible to HTTP requests, so until you make this volume publicly accessible, user photos will not work on the front end.
 
 Here’s how you can resolve this:
 
-1. Move the craft/storage/userphotos/ folder somewhere below your web root (e.g. public_html/userphotos/)
+1. Move the `storage/userphotos/` folder somewhere below your web root (e.g. `public_html/userphotos/`)
 2. Go to Settings → Assets → Volumes → User Photos and configure the volume based on the new folder location:
     - Update the File System Path setting to point to the new folder location
     - Enable the “Assets in this volume have public URLs” setting
