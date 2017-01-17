@@ -10,7 +10,7 @@ Intro to Plugin Dev
 
 ## What are Plugins?
 
-Plugins are mini applications that run alongside Craft’s core code. They can be simple, serving a single purpose like providing a new Dashboard widget type, or they can be large and complex.
+Plugins are mini applications that run alongside Craft’s core code. They can be simple, serving a single purpose like providing a new Dashboard widget type, or they can be complex, introducing entirely new concepts to the system, like an e-commerce application. Craft’s plugin architecture provides a solid foundation for building just about anything.
 
 Technically, plugins are a superset of [Yii Modules](http://www.yiiframework.com/doc-2.0/guide-structure-modules.html), which means they can have [models](http://www.yiiframework.com/doc-2.0/guide-structure-models.html), [active record classes](http://www.yiiframework.com/doc-2.0/guide-db-active-record.html), [controllers](http://www.yiiframework.com/doc-2.0/guide-structure-controllers.html), [application components](http://www.yiiframework.com/doc-2.0/guide-structure-application-components.html), and other things. It wouldn’t hurt to take some time to read up on those concepts if you are new to Yii.
 
