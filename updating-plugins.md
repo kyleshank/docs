@@ -13,6 +13,8 @@ The end result is a faster, leaner, and much more elegant codebase for core deve
 
 Before reading through this guide, make sure you’ve read through [Upgrading from Craft 2](upgrade.md) and [Intro to Plugin Dev](plugin-intro.md) for some background info about developing plugins and sites with Craft 3.
 
+> {note} This is not a complete list of things that have changed. If you think something is missing, please [create an issue](https://github.com/craftcms/docs/issues/new).
+
 - [High Level Notes](#high-level-notes)
 - [Service Names](#service-names)
 - [Translations](#translations)
