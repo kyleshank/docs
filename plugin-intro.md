@@ -191,9 +191,7 @@ You can also define **notes** and **tips**, using this syntax:
 > {tip} A helpful tip.
 ```
 
-<img src="assets/plugin-update.png" width="1060" alt="The Utilities → Updates page in Craft’s Control Panel, with an available update for the “Foo” plugin.">
-
-Once your plugin’s changelog is set up and available publicly somewhere, you can configure your plugin with its URL by setting its `$changelogUrl` property from its [`init()`](http://www.yiiframework.com/doc-2.0/yii-base-object.html#init()-detail) method:
+Once your plugin’s changelog is available publicly somewhere, you can configure your plugin with its URL by setting its `$changelogUrl` property from its [`init()`](http://www.yiiframework.com/doc-2.0/yii-base-object.html#init()-detail) method:
 
 ```php
 public function init()
@@ -205,3 +203,7 @@ public function init()
     // ...
 }
 ```
+
+If everything is set up correctly, your plugins’ available updates should start appearing on the Utilities → Updates page.
+
+<img src="assets/plugin-update.png" width="1060" alt="The Utilities → Updates page in Craft’s Control Panel, with an available update for the “Foo” plugin.">
