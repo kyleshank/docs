@@ -169,7 +169,9 @@ Within the changelog, releases should be listed in descending order (newest on t
 
 The version headers in your changelog must follow the general format:
 
-    ## X.Y.Z - YYYY-DD-MM
+```markdown
+## X.Y.Z - YYYY-DD-MM
+```
 
 with the following possible deviations:
 
@@ -178,6 +180,18 @@ with the following possible deviations:
 - The version can start with `v` (e.g. `v1.2.3`).
 - The version can be hyperlinked (e.g. `[1.2.3]`).
 - A `[CRITICAL]` flag can be appended after the date to indicate a critical release.
+
+As for the release notes, Craft will parse all content between version headings as [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown). You can have H[3-6] headings, paragraphs, lists, code blocks, etc. The only thig that is *not* allowed is actual HTML code, which will be escaped.
+  
+You can also define **notes** and **tips**, using this syntax:
+
+```markdown
+> {note} A word of warning.
+
+> {tip} A helpful tip.
+```
+
+<img src="assets/plugin-update.png" width="1060" alt="The Utilities → Updates page in Craft’s Control Panel, with an available update for the “Foo” plugin.">
 
 Once your plugin’s changelog is set up and available publicly somewhere, you can configure your plugin with its URL by setting its `$changelogUrl` property from its [`init()`](http://www.yiiframework.com/doc-2.0/yii-base-object.html#init()-detail) method:
 
