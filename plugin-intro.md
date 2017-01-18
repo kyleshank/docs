@@ -3,9 +3,10 @@ Intro to Plugin Dev
 
 - [What are Plugins?](#what-are-plugins)
 - [Getting Started](#getting-started)
+  - [Preparation](#preparation)
   - [Setting up the basic file structure](#setting-up-the-basic-file-structure)
   - [composer.json](#composerjson)
-  - [`src/Plugin.php`](#srcpluginphp)
+  - [Primary Plugin Class](#primary-plugin-class)
   - [Loading your plugin into Craft](#loading-your-plugin-into-craft)
 - [Plugin Icons](#plugin-icons)
 - [Plugin Changelogs](#plugin-changelogs)
@@ -14,7 +15,7 @@ Intro to Plugin Dev
 
 Plugins are mini applications that run alongside Craft’s core code. They can be simple, serving a single purpose like providing a new Dashboard widget type, or they can be complex, introducing entirely new concepts to the system, like an e-commerce application. Craft’s plugin architecture provides a solid foundation for building just about anything.
 
-Technically, plugins are a superset of [Yii Modules](http://www.yiiframework.com/doc-2.0/guide-structure-modules.html), which means they can have [models](http://www.yiiframework.com/doc-2.0/guide-structure-models.html), [active record classes](http://www.yiiframework.com/doc-2.0/guide-db-active-record.html), [controllers](http://www.yiiframework.com/doc-2.0/guide-structure-controllers.html), [application components](http://www.yiiframework.com/doc-2.0/guide-structure-application-components.html), and other things. It wouldn’t hurt to take some time to read up on those concepts if you are new to Yii.
+Technically, plugins are a superset of [Yii Modules], which means they can have [models], [active record classes], [controllers], [application components], and other things. It wouldn’t hurt to take some time to read up on those concepts if you are new to Yii.
 
 The main benefits of Craft Plugins over Yii Modules are:
 
@@ -25,9 +26,20 @@ The main benefits of Craft Plugins over Yii Modules are:
 
 ## Getting Started
 
+### Preparation
+
+Before you begin working on a plugin, you need to decide on a few things:
+
+- **Package name** – Used to name your Composer package. It’s required even if you don’t want to distribute your plugin via Composer. (See Composer’s [documentation][package name] for details.)
+- **Namespace prefix** – Your plugin’s class namespaces will begin with this. (See the [PSR-4] autoloading specification for details.) Note that this should *not* begin with `craft\`; use something that identifies you, the developer.
+- **Plugin handle** – Something that uniquely identifies your plugin within the Craft ecosystem. (Plugin handles must begin with a letter and contain only letters, numbers, and underscores.)
+- **Plugin name** – What your plugin will be called within the Control Panel.
+
+Naming things is one of the [two hardest things] in computer science, so if you can make a decision on those things, the rest of the plugin should practically write itself.
+
 ### Setting up the basic file structure
 
-To create a plugin, create a new directory wherever you like to work on development projects. Give it the following structure:
+To create a plugin, create a new directory wherever you like to work on development projects. Call it something based on your plugin handle, but it’s not really important. Give it the following structure:
 
 ```
 base_dir/
@@ -36,11 +48,9 @@ base_dir/
     Plugin.php
 ```
 
-> {tip} It doesn’t matter what name you give the root directory. Choose something that makes sense.
-
 ### composer.json
 
-Whether or not you wish to make your plugin available as a Composer dependency (you should), your plugin must have a `composer.json` file. Craft will check this file to get basic information about the plugin.
+Whether or not you wish to make your plugin available as a Composer dependency (you probably should), your plugin must have a `composer.json` file. Craft will check this file to get basic information about the plugin.
 
 Use this template as a starting point for your `composer.json` file:
 
@@ -69,18 +79,33 @@ Use this template as a starting point for your `composer.json` file:
 
 Replace:
 
-- `package/name` with your desired Composer [package name](https://getcomposer.org/doc/04-schema.md#name).
-- `root\\namespace\\` with the root PHP namespace your plugin’s PHP classes will use. (Use double-backslashes because JSON.)
-- `pluginhandle` with your plugin’s handle.
-- `Plugin Name` with the name your plugin should have within the Control Panel.
+- `package/name` with your package name.
+- `root\\namespace\\` with your namespace prefix. (Use double-backslashes because JSON.)
+- `pluginhandle` with your plugin handle.
+- `Plugin Name` with your plugin name.
 - `Developer Name` with your name, or the organization name that the plugin should be attributed to.
 - `https://developer-url.com` with the URL to the website the developer name should link to in the Control Panel.
 
-> {note} Don’t use `pixelandtonic\\*` or `craft\\*` as your namespace root. Those should only be used for first party code.
+Here’s a full list of the properties that can go in that `extra` object:
 
-> {note} Your plugin’s name and handle must both be unique to be included in the Craft Plugin Store.
+- `class` – The [primary Plugin class](#primary-plugin-class) name. If not set, the installer will look for a `Plugin.php` file at each of the `autoload` path roots.
+- `basePath` – The base path to your plugin’s source files. This can begin with one of your `autoload` namespaces, formatted as a [Yii alias] (e.g. `@vendorname/foo`). If not set, the directory that contains your primary Plugin class will be used.    
+- `name` – The plugin name. If not set, the package name (sans vendor prefix) will be used.
+- `handle` – The plugin handle. If not set, the package name (sans vendor prefix) will be used.
+- `version` - The plugin version. If not set, the current package version will be used.
+- `schemaVersion` – The plugin schema version.
+- `description` – The plugin description. If not set, the main `description` property will be used.
+- `developer` – The developer name. If not set, the first author’s `name` will be used (via the `authors` property).
+- `developerUrl` – The developer URL. If not set, the `homepage` property will be used, or toe first author’s `homepage` (via the `authors` property).
+- `documentationUrl` – The plugin’s documentation URL. If not set, the `support.docs` property will be used.
+- `changelogUrl` – The plugin’s changelog URL (used to show pending plugin updates and their release notes).
+- `downloadUrl` – The plugin’s download URL (used to update manual installations of the plugin).
+- `sourceLanguage` – The plugin’s source language (defaults to `en-US`).
+- `components` – Object defining any [component configs] that should be present on the plugin.
 
-### `src/Plugin.php`
+> {note} Don’t include `composer/installers` as a Composer dependency.
+
+### Primary Plugin Class
 
 The `src/Plugin.php` file is your plugin’s primary class. It will get instantiated at the beginning of every request. Its `init()` method is the best place to register event listeners, and any other steps it needs to take to initialize itself.
 
@@ -125,7 +150,7 @@ In your terminal, go to your Craft project’s `plugins/` folder and create a sy
 
 #### Set your plugin up as a Composer dependency
 
-Composer supports a [`path`](https://getcomposer.org/doc/05-repositories.md#path) repository type, which can be used to symlink your plugin into the `vendor/` folder right alongside your project’s other dependencies (like Craft itself). This is the best way to go if your plugin has any of its own dependencies, as Composer will still load those into the `vendor` folder like normal.
+Composer supports a [`path` repository type][path] repository type, which can be used to symlink your plugin into the `vendor/` folder right alongside your project’s other dependencies (like Craft itself). This is the best way to go if your plugin has any of its own dependencies, as Composer will still load those into the `vendor` folder like normal.
 
 To set this up, open your Craft project’s `composer.json` file and add a new `path` repository record, pointed at your plugin’s root directory.
 
@@ -158,3 +183,15 @@ Plugins can provide an icon, which will be visible on the Settings → Plugins p
 Plugin icons must be square SVG files, saved as `icon.svg` at the root of your plugin’s source directory (e.g `src/`).
 
 If your plugin has a [Control Panel section](cp-templates.md), you can also give its global nav item a custom icon by saving an `icon-mask.svg` file in the root of your plugin’s source directory. Note that this icon cannot contain strokes, and will always be displayed in a solid color (respecting alpha transparency).
+
+[Yii Modules]: http://www.yiiframework.com/doc-2.0/guide-structure-modules.html
+[models]: http://www.yiiframework.com/doc-2.0/guide-structure-models.html
+[active record classes]: http://www.yiiframework.com/doc-2.0/guide-db-active-record.html
+[controllers]: http://www.yiiframework.com/doc-2.0/guide-structure-controllers.html
+[application components]: http://www.yiiframework.com/doc-2.0/guide-structure-application-components.html
+[package name]: https://getcomposer.org/doc/04-schema.md#name
+[two hardest things]: https://twitter.com/codinghorror/status/506010907021828096
+[PSR-4]: http://www.php-fig.org/psr/psr-4/
+[Yii alias]: http://www.yiiframework.com/doc-2.0/guide-concept-aliases.html
+[component configs]: http://www.yiiframework.com/doc-2.0/guide-structure-application-components.html
+[path]: https://getcomposer.org/doc/05-repositories.md#path
