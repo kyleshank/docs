@@ -8,6 +8,7 @@ Intro to Plugin Dev
   - [`src/Plugin.php`](#srcpluginphp)
   - [Loading your plugin into Craft](#loading-your-plugin-into-craft)
 - [Plugin Icons](#plugin-icons)
+- [Plugin Changelogs](#plugin-changelogs)
 
 ## What are Plugins?
 
@@ -157,3 +158,36 @@ Plugins can provide an icon, which will be visible on the Settings → Plugins p
 Plugin icons must be square SVG files, saved as `icon.svg` at the root of your plugin’s source directory (e.g `src/`).
 
 If your plugin has a [Control Panel section](cp-templates.md), you can also give its global nav item a custom icon by saving an `icon-mask.svg` file in the root of your plugin’s source directory. Note that this icon cannot contain strokes, and will always be displayed in a solid color (respecting alpha transparency).
+
+## Plugin Changelogs
+
+If you keep a changelog for your plugin (you should), you can configure your plugin with its URL. Whenever Craft is checking for updates, it will download and parse your changelog to see if any updates to your plugin are available.
+
+Your changelog should be saved as `CHANGELOG.md` at the root of your plugin’s repo. (That’s not a technical requirement, but putting it there will make it easier to find for people viewing your plugin on GitHub or within their `vendor/` directory.) It should be a Markdown-formatted document that loosely follows the suggestions on [keepachangelog.com](http://keepachangelog.com/).
+
+Within the changelog, releases should be listed in descending order (newest on top). Craft will stop parsing the changelog as soon as it hits a version that is older than or equal to the installed version.
+
+The version headers in your changelog must follow the general format:
+
+    ## X.Y.Z - YYYY-DD-MM
+
+with the following possible deviations:
+
+- A 4th version number is allowed (e.g. `1.2.3.4`).
+- Pre-release versions are allowed (e.g. `1.0.0-alpha.1`).
+- The version can start with `v` (e.g. `v1.2.3`).
+- The version can be hyperlinked (e.g. `[1.2.3]`).
+- A `[CRITICAL]` flag can be appended after the date to indicate a critical release.
+
+Once your plugin’s changelog is set up and available publicly somewhere, you can configure your plugin with its URL by setting its `$changelogUrl` property from its [`init()`](http://www.yiiframework.com/doc-2.0/yii-base-object.html#init()-detail) method:
+
+```php
+public function init()
+{
+    parent::init();
+
+    $this->changelogUrl = 'https://raw.githubusercontent.com/pixelandtonic/foo/master/CHANGELOG.md';
+    
+    // ...
+}
+```
