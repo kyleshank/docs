@@ -70,6 +70,7 @@ The following config settings have been renamed or removed:
 
 File          | Old Setting                  | New Setting
 ------------- | ---------------------------- | -----------------------------
+`general.php` | `appId`                      | *(n/a)*
 `general.php` | `defaultFilePermissions`     | `defaultFileMode`<sup>1</sup>
 `general.php` | `defaultFolderPermissions`   | `defaultDirMode`
 `general.php` | `useWriteFileLock`           | `useFileLocks`
