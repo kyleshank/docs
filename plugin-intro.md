@@ -169,7 +169,7 @@ In your terminal, go to your Craft project and tell Composer to require your plu
 
 ```
 > cd ~/dev/my-craft-project
-> composer.phar require package/name
+> composer require package/name
 ```
 
 > {note} One caveat of `path` Composer repositories is that Composer is not too smart about keeping their dependencies updated when calling `composer update`. You may need to remove and re-require your plugin in your Craft project each time its dependencies change. 
