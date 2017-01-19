@@ -9,7 +9,7 @@ Craft 3 Documentation
 
 ## Getting Started
 
-- Installation
+- [Installation](installation.md)
 - Configuration
 - Directory Structure
 
