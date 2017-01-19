@@ -1,6 +1,7 @@
 Upgrading from Craft 2
 ======================
 
+- [Updating Craft CMS](#updating-craft-cms)
 - [Config Settings](#config-settings)
 - [Redactor Configs](#redactor-configs)
 - [URL Rules](#url-rules)
@@ -18,6 +19,50 @@ Upgrading from Craft 2
 - [Locales](#locales)
 - [Request Params](#request-params)
 - [Plugins](#plugins)
+
+## Updating Craft CMS
+
+The first step to upgrading your Craft site to Craft 3 is updating Craft CMS itself.
+
+Before you begin, make sure that:
+
+- your server meets Craft 3’s [**minimum requirements**](requirements.md)
+- your site is running at least **Craft 2.6.2788**
+- you’ve got a fresh **database backup** in case everything goes horribly wrong
+- **Composer** is installed (see step 1 of the [installation instructions](installation.md))
+
+Once everything’s in order, follow these steps to update Craft:
+
+1. Open your terminal and go to your Craft project:
+
+        cd /path/to/project
+
+2. Then run the following command to load Craft 3 (this will take a few minutes):
+
+        composer require craftcms/cms
+
+3. Then run the following command to install the Craft plugin installer for Composer:
+
+        composer require craftcms/plugin-installer
+
+4. Once all the files are in place, replace the contents of your `public/index.php` file (or `public_htm/index.php`, etc.) with this code: (Be sure to preserve any PHP constants and other custom code you may have.)
+ 
+    ```php
+    <?php
+ 
+    // Project root path
+    $root = dirname(__DIR__);
+
+    // Load and run Craft
+    define('CRAFT_BASE_PATH', $root.'/craft');
+    require_once $root.'/vendor/autoload.php';
+    $app = require $root.'/vendor/craftcms/cms/bootstrap/web.php';
+    $app->run();
+    ```
+
+5. Point your browser to your Control Panel URL (e.g. `http://example.dev/admin`). If you see the update prompt, you did everything right! Go ahead and click “Finish up” to update your database.
+
+6. Delete your old `craft/app/` folder. It’s no longer needed; Craft 3 is located in `vendor/craftcms/cms/` now.
 
 ## Config Settings
 
