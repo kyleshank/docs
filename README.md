@@ -10,7 +10,6 @@ Craft 3 Documentation
 ## Getting Started
 
 - [Installation](installation.md)
-- Configuration
 - Directory Structure
 
 ## Core Concepts
