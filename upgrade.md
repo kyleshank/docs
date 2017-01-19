@@ -22,7 +22,7 @@ Upgrading from Craft 2
 
 ## Updating Craft CMS
 
-The first step to upgrading your Craft site to Craft 3 is updating Craft CMS itself.
+The first step to upgrading your site to Craft 3 is updating the CMS itself.
 
 Before you begin, make sure that:
 
