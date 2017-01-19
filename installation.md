@@ -86,7 +86,7 @@ Create a new web server to host your Craft project. Its document root should poi
 If you’re not using MAMP, you will probably need to update your `hosts` file, so your computer knows to route requests to your chosen host name to the local computer.
 
 - **macOS/Linux/Unix:** `/etc/hosts`
-- **Windows:** `\WINDOWS\System32\drivers\etc\hosts`
+- **Windows:** `\Windows\System32\drivers\etc\hosts`
 
 You can test whether everything is set up correctly by pointing your web browser to `http://HOSTNAME/index.php?p=admin` (substituting `HOSTNAME` with your new web server’s host name). You should get the Craft installation wizard, which will take you through a couple setup screens, and then perform the actual installation.
 
