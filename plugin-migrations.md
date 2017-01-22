@@ -59,8 +59,30 @@ Alternatively, you can run pending migrations from your terminal with the `migra
 
 ## Install Migrations
 
-Plugins can have a special “Install” migration which handles the installation and uninstallation of the plugin. If your plugin has any database changes it needs to make when installed/uninstalled, you can create an Install migration by running the `migrate/create` command using the migration name `install`:
+Plugins can have a special “Install” migration which handles the installation and uninstallation of the plugin. Install migrations live at `migrations/Install.php` alongside normal migrations. They should follow this template:
+
+```php
+<?php
+namespace namesspace\prefix\migrations;
+
+class Install extends \craft\db\Migration
+{
+    public function safeUp()
+    {
+        // ...
+    }
+    
+    public function safeDown()
+    {
+        // ...
+    }
+}
+```
+
+You can give your plugin an install migration with the `migrate/create` command if you pass the migration name “`install`”:
 
     ./craft migrate/create install --plugin=PLUGIN_HANDLE
 
-The migration will be created in your plugin’s `migrations/` folder just like other migrations, but unlike the others, it will not be named with a timestamp – just `Install.php`. Also unlike the others, you cannot execute the Install migration with the `migrate/up` command. The only time it gets run is when your plugin is being installed (`safeUp()`) or uninstalled (`safeDown()`), courtesy of `craft\base\Plugin::install()` and `uninstall()`.
+When a plugin has an Install migration, its `safeUp()` method will be called when the plugin is installed, and its `safeDown()` method will be called when the plugin is uninstalled (invoked by `craft\base\Plugin::install()` and `uninstall()`).
+
+> {note} It is *not* a plugin’s responsibility to manage its row in the `plugins` database table. Craft takes care of that for you.
