@@ -42,4 +42,4 @@ Craft 3 Documentation
 - Element Actions
 - Volume Types
 - Custom Component Types
-- Migrations
+- [Plugin Migrations](plugin-migrations.md)
