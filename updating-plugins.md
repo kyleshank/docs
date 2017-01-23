@@ -27,7 +27,11 @@ Before reading through this guide, make sure you’ve read through [Upgrading fr
   - [General Hooks](#general-hooks)
   - [Routing Hooks](#routing-hooks)
   - [Element Hooks](#element-hooks)
-  
+- [Writing an Upgrade Migration](#writing-an-upgrade-migration)
+  - [Setting it up](#setting-it-up)
+  - [Component Class Names](#component-class-names)
+  - [Locale FKs](#locale-fks)
+
 ## High Level Notes
 
 - The main application instance is available via `Craft::$app` now, rather than `craft()`.
@@ -592,3 +596,93 @@ public function getTableAttributesForSource($elementType, $sourceKey)
 ```
 
 > {note} There is no direct Craft 3 equivalent for this hook, which allowed plugins to completely change the table attributes for an element type right before the element index view was rendered. The closest thing in Craft 3 is the `craft\base\Element::EVENT_REGISTER_TABLE_ATTRIBUTES` event, which can be used to change the available table attributes for an element type when an admin is customizing the element index sources.
+
+## Writing an Upgrade Migration
+
+If your plugin has a Craft 2 counterpart and there’s a chance people will be upgrading their Craft 2 installations with your plugin to Craft 3, you’ll probably need to give your plugin an upgrade migration that eases the transition.
+
+### Setting it up
+
+First, establish whether Craft will consider your plugin to be an **update** or a **new installation**. Craft will consider it to be an **update** if your plugin handle is equal to its former class name, minus the `Plugin` suffix. (Casing changes are OK here, so if your Craft 2 version’s class name was `FooBarPlugin`, and the Craft 3 version’s handle is `fooBar`, those would be considered equal.)
+
+#### In Case of Update 
+
+If Craft will consider your plugin to be at **update** of its previous version, create a new [migration](plugin-migrations.md) named something like “`craft3_upgrade`”.
+
+Your upgrade code will go directly in its `safeUp()` method.
+
+#### In Case of New Installation
+
+If Craft will consider your plugin to be a **new installation**, create an [Install migration](plugin-migrations.md#install-migrations) with the following code in the `safeUp()` method: 
+
+```php
+public function safeUp()
+{
+    // Fetch the old plugin row, if it was installed
+    $row = (new \craft\db\Query())
+        ->select(['id', 'settings'])
+        ->from(['{{%plugins}}'])
+        ->where(['handle' => 'oldclass'])
+        ->one();
+
+    if ($row !== false)) {
+        // The plugin was installed
+        
+        // Update this one's settings to old values
+        $this->update('{{%plugins}}', [
+            'settings' => $row['settings']
+        ], ['handle' => 'newhandle']);
+        
+        // Delete the old row
+        $this->delete('{{%plugins}}', ['id' => $row['id']]);
+        
+        // Upgrade code...
+    }
+}
+```
+
+> {note} Plugin handles are always lowercased in the `plugins` table.
+
+Your upgrade migration code will go where that `// Upgrade code...` comment is.
+
+### Component Class Names
+
+If your plugin provides any custom element types, field types, or widget types, you will need to update the `type` column in the appropriate tables to match their new class names.
+
+#### Elements
+
+```php
+$this->update('{{%elements}}', [
+    'type' => MyElement::class
+], ['type' => 'OldPlugin_ElementType']);
+```
+
+#### Fields
+
+```php
+$this->update('{{%fields}}', [
+    'type' => MyField::class
+], ['type' => 'OldPlugin_FieldType']);
+```
+
+#### Widgets
+
+```php
+$this->update('{{%widgets}}', [
+    'type' => MyWidget::class
+], ['type' => 'OldPlugin_WidgetType']);
+```
+
+### Locale FKs
+
+If your plugin created any custom foreign keys to the `locales` table in Craft 2, the Craft 3 upgrade will have automatically added new columns alongside them, with foreign keys to the `sites` table instead, as the `locales` table is no longer with us.
+
+The data should be good to go, but you will probably want to drop the old column, and rename the new one Craft created for you.
+
+```php
+// Drop the old locale FK column
+$this->dropColumn('{{%tablename}}', 'oldName');
+
+// Rename the new siteId FK column
+MigrationHelper::renameColumn('{{%tablename}}', 'oldName__siteId', 'newName', $this);
+```
