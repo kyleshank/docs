@@ -21,7 +21,7 @@ The main benefits of Craft Plugins over Yii Modules are:
 
 - Plugins can be installed, updated, and uninstalled. 
 - Plugins can have their own migrations, managed separately from Craft and content migrations.
-- Plugins can have a global template variable, accessed from `craft.pluginhandle`.
+- Plugins can have a global template variable, accessed from `craft.pluginHandle`.
 - Plugins can have their own section in the Control Panel.
 
 ## Getting Started
@@ -32,14 +32,14 @@ Before you begin working on a plugin, you need to decide on a few things:
 
 - **Package name** – Used to name your Composer package. It’s required even if you don’t want to distribute your plugin via Composer. (See Composer’s [documentation][package name] for details.)
 - **Namespace prefix** – Your plugin’s class namespaces will begin with this. (See the [PSR-4] autoloading specification for details.) Note that this should *not* begin with `craft\`; use something that identifies you, the developer.
-- **Plugin handle** – Something that uniquely identifies your plugin within the Craft ecosystem. (Plugin handles must begin with a letter and contain only letters, numbers, and underscores.)
+- **Plugin handle** – Something that uniquely identifies your plugin within the Craft ecosystem. (Plugin handles must begin with a letter and contain only letters, numbers, and underscores. They should be `camelCased`.)
 - **Plugin name** – What your plugin will be called within the Control Panel.
 
 Naming things is one of the [two hardest things] in computer science, so if you can make a decision on those things, the rest of the plugin should practically write itself.
 
 ### Setting up the basic file structure
 
-To create a plugin, create a new directory wherever you like to work on development projects. Call it something based on your plugin handle, but it’s not really important. Give it the following structure:
+To create a plugin, create a new directory for it wherever you like to work on development projects (the name is not important, as far as Craft is concerned). Give it the following structure:
 
 ```
 base_dir/
@@ -69,7 +69,7 @@ Use this template as a starting point for your `composer.json` file:
     }
   },
   "extra": {
-    "handle": "pluginhandle",
+    "handle": "pluginHandle",
     "name": "Plugin Name",
     "developer": "Developer Name",
     "developerUrl": "https://developer-url.com"
@@ -81,17 +81,17 @@ Replace:
 
 - `package/name` with your package name.
 - `root\\namespace\\` with your namespace prefix. (Use double-backslashes because JSON.)
-- `pluginhandle` with your plugin handle.
+- `pluginHandle` with your plugin handle.
 - `Plugin Name` with your plugin name.
 - `Developer Name` with your name, or the organization name that the plugin should be attributed to.
 - `https://developer-url.com` with the URL to the website the developer name should link to in the Control Panel.
 
 Here’s a full list of the properties that can go in that `extra` object:
 
+- `handle` – The plugin handle (required).
 - `class` – The [primary Plugin class](#primary-plugin-class) name. If not set, the installer will look for a `Plugin.php` file at each of the `autoload` path roots.
 - `basePath` – The base path to your plugin’s source files. This can begin with one of your `autoload` namespaces, formatted as a [Yii alias] (e.g. `@vendorname/foo`). If not set, the directory that contains your primary Plugin class will be used.    
 - `name` – The plugin name. If not set, the package name (sans vendor prefix) will be used.
-- `handle` – The plugin handle. If not set, the package name (sans vendor prefix) will be used.
 - `version` - The plugin version. If not set, the current package version will be used.
 - `schemaVersion` – The plugin schema version.
 - `description` – The plugin description. If not set, the main `description` property will be used.
@@ -141,7 +141,7 @@ There are two ways to make your plugin visible to Craft:
 
 This route is simpler, but it’s only practical if your plugin isn’t going to have any of its own Composer dependencies (besides Craft itself).
 
-In your terminal, go to your Craft project’s `plugins/` folder and create a symlink to your plugin’s root directory. The symlink should be named identically to your plugin’s handle.
+In your terminal, go to your Craft project’s `plugins/` folder and create a symlink to your plugin’s root directory. The symlink should be named identically to your plugin’s handle, except **all-lowercase**.
 
 ```
 > cd ~/dev/my-craft-project/plugins
