@@ -36,8 +36,8 @@ Craft 3 Documentation
 - [Coding Guidelines](coding-guidelines.md)
 - [Updating Plugins for Craft 3](updating-plugins.md)
 - [Changelogs and Updates](changelogs-and-updates.md)
-- Control Panel Templates
 - [Plugin Settings](plugin-settings.md)
+- [Control Panel Section](cp-section.md)
 - [Services](services.md)
 - Widget Types
 - Field Types
