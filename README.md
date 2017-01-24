@@ -9,6 +9,7 @@ Craft 3 Documentation
 
 ## Getting Started
 
+- [Server Requirements](requirements.md)
 - [Installation](installation.md)
 - Directory Structure
 
