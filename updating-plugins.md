@@ -11,9 +11,7 @@ The primary goals of the refactoring were:
 
 The end result is a faster, leaner, and much more elegant codebase for core development and plugin development alike. We hope you enjoy it.
 
-Before reading through this guide, make sure you’ve read through [Upgrading from Craft 2](upgrade.md) and [Intro to Plugin Dev](plugin-intro.md) for some background info about developing plugins and sites with Craft 3.
-
-> {note} This is not a complete list of things that have changed. If you think something is missing, please [create an issue](https://github.com/craftcms/docs/issues/new).
+> {note} If you think something is missing, please [create an issue](https://github.com/craftcms/docs/issues/new).
 
 - [High Level Notes](#high-level-notes)
 - [Service Names](#service-names)
