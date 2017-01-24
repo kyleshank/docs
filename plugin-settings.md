@@ -106,7 +106,7 @@ namespace ns\prefix;
 
 class Plugin extends \craft\base\Plugin
 {
-    public $hasCpSection = true;
+    public $hasSettings = true;
 
     protected function createSettingsModel()
     {
