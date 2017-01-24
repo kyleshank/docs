@@ -71,7 +71,7 @@ return [
 
 You can customize the Redactor configurations that are available to Rich Text fields by saving them as `.json` files within your `config/redactor/` directory. The available config settings are listed in [Redactor’s documentation](https://imperavi.com/redactor/docs/settings/).
 
-> {note} These `.json` files must contain **valid JSON**. That means:
+These `.json` files must contain **valid JSON**. That means:
 
 - No comments
 - All object properties (the config setting names) must be wrapped in double quotes
