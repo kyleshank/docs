@@ -37,17 +37,28 @@ Craft requires the following PHP extensions to be enabled:
 
 The database user you tell Craft to connect with must have the following privileges:
 
-* `SELECT`     (MySQL & PostgreSQL)
-* `INSERT`     (MySQL & PostgreSQL)
-* `DELETE`     (MySQL & PostgreSQL)
-* `UPDATE`     (MySQL & PostgreSQL)
-* `CREATE`     (MySQL & PostgreSQL)
-* `ALTER`      (MySQL)
-* `INDEX`      (MySQL)
-* `DROP`       (MySQL)
-* `DELETE`     (PostgreSQL)
-* `REFERENCES` (MySQL & PostgreSQL)
-* `CONNECT`    (PostgreSQL)
+#### MySQL
+
+* `SELECT`
+* `INSERT`
+* `DELETE`
+* `UPDATE`
+* `CREATE`
+* `ALTER`
+* `INDEX`
+* `DROP`
+* `REFERENCES`
+
+#### PostgreSQL
+
+* `SELECT`
+* `INSERT`
+* `DELETE`
+* `UPDATE`
+* `CREATE`
+* `DELETE`
+* `REFERENCES`
+* `CONNECT`
 
 ## CP Browser Requirements
 
