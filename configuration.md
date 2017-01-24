@@ -9,7 +9,7 @@ Configuration
 - [URL Rules](#url-rules)
 - [Redactor Configs](#redactor-configs)
 - [Application Config](#application-config)
-  - [Mailer Config](#mailer-config)
+  - [Mailer Component](#mailer-config)
 
 ## PHP Constants
 
@@ -94,7 +94,7 @@ You can customize the Redactor configurations that are available to Rich Text fi
 
 You can customize Craft’s entire [application configuration](http://www.yiiframework.com/doc-2.0/guide-structure-applications.html#application-configurations) from `config/app.php`. Any items returned by that array will get merged into the main application configuration array. 
 
-### Mailer Config
+### Mailer Component
 
 To override the `mailer` component config (which is responsible for sending emails), do this in `config/app.php`:
 
