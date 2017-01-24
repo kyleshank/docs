@@ -124,11 +124,13 @@ class Plugin extends \craft\base\Plugin
 }
 ```
 
-With all that in place, your plugin will now get its own icon on the Settings page, and a cog icon in its row on the Settings → Plugins page, which will link to `/admin/settings/kebabed-plugin-handle`. Craft will take care of the routing, CP template layouts, settings saving, etc. for you. Unless you don’t want it to…
+With all that in place, your plugin will now get its own icon on the Settings page, and a cog icon in its row on the Settings → Plugins page, which will link to `/admin/settings/plugin-handle`.
+
+> {tip} That `plugin-handle` segment is your plugin handle, converted from `camelCase` to `kebab-case`.  
 
 ### Advanced Settings Pages
 
-When the `/admin/settings/kebabed-plugin-handle` Control Panel URL is requested, your plugin is ultimately in charge of the response. Namely, your plugin’s `getSettingsResponse()` method. The default `getSettingsResponse()` implementation in `craft\base\Plugin` will call your plugin’s `settingsHtml()` method, and then tell the active controller to render Craft’s `settings/plugins/_settings` template (the layout template for plugin settings pages), passing it the HTML returned by `settingsHtml()`.
+When the `/admin/settings/plugin-handle` Control Panel URL is requested, your plugin is ultimately in charge of the response. Namely, your plugin’s `getSettingsResponse()` method. The default `getSettingsResponse()` implementation in `craft\base\Plugin` will call your plugin’s `settingsHtml()` method, and then tell the active controller to render Craft’s `settings/plugins/_settings` template (the layout template for plugin settings pages), passing it the HTML returned by `settingsHtml()`.
 
 If a plugin needs more control over its settings page(s), it can override its `getSettingsResponse()` method and do whatever it wants with the request.
 
@@ -146,7 +148,7 @@ It can redirect the request to a completely different URL, too:
 ```php
 public function getSettingsResponse()
 {
-    $url = \craft\helpers\UrlHelper::cpUrl('kebabed-plugin-handle/settings');
+    $url = \craft\helpers\UrlHelper::cpUrl('plugin-handle/settings');
 
     return \Craft::$app->controller->redirect($url);
 }
