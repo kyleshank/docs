@@ -48,7 +48,7 @@ public function init()
     $this->setComponents([
         'bacon' => \vendor\pluginhandle\services\Bacon::class),
     ]);
-    
+
     // ...
 }
 ```
@@ -122,7 +122,7 @@ Here’s a control flow diagram for class-oriented methods:
         ┗━━━━━━━━━━━━━┛
 ```
 
-> {note} It’s only necessary to wrap the operation in a database transaction if the operation encompasses multiple database changes. 
+> {note} It’s only necessary to wrap the operation in a database transaction if the operation encompasses multiple database changes.
 
 Here’s a complete code example of what that looks like:
 

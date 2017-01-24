@@ -84,7 +84,7 @@ To keep front-end Twig code looking clean, the `|t` and `|translate` filters don
 
 ### Table Names
 
-Craft no longer auto-prepends the DB table prefix to table names, so you must write table names in Yii’s `{{%tablename}}` syntax. 
+Craft no longer auto-prepends the DB table prefix to table names, so you must write table names in Yii’s `{{%tablename}}` syntax.
 
 ### Select Queries
 
@@ -118,7 +118,7 @@ $result = Craft::$app->db->createCommand()
 
 ## Plugin Hooks
 
-The concept of “plugin hooks” has been removed in Craft 3. Here’s a list of the previously-supported hooks and how you should accomplish the same things in Craft 3: 
+The concept of “plugin hooks” has been removed in Craft 3. Here’s a list of the previously-supported hooks and how you should accomplish the same things in Craft 3:
 
 ### General Hooks
 
@@ -212,7 +212,7 @@ yii\base\Event::on(
     function(craft\events\ResolveResourcePathEvent $event) {
         if (strpos($event->uri, 'myplugin/') === 0) {
             $event->path = Craft::$app->path->getStoragePath().'/myplugin/'.substr($event->uri, 9);
-            
+
             // Prevent other event listeners from getting invoked
             $event->handled = true;
         }
@@ -354,7 +354,7 @@ yii\base\Event::on(
     craft\helpers\Assets::EVENT_SET_FILENAME,
     function(craft\events\SetElementTableAttributeHtmlEvent $event) {
         $event->filename = 'KittensRule-'.$event->filename;
-            
+
         // Prevent other event listeners from getting invoked
         $event->handled = true;
     }
@@ -434,7 +434,7 @@ yii\base\Event::on(
 
         if ($entry->section->handle === 'products') {
             $event->route = 'products/view-entry';
-            
+
             // Prevent other event listeners from getting invoked
             $event->handled = true;
         }
@@ -446,7 +446,7 @@ yii\base\Event::on(
 
 The following sets of hooks have been combined into single events that are shared across all element types.
 
-For each of these, you could either pass `craft\base\Element::class` to the first argument of `yii\base\Event::on()` (registering the event listener for *all* element types), or a specific element type class (registering the event listener for just that one element type). 
+For each of these, you could either pass `craft\base\Element::class` to the first argument of `yii\base\Event::on()` (registering the event listener for *all* element types), or a specific element type class (registering the event listener for just that one element type).
 
 #### `addEntryActions`, `addCategoryActions`, `addAssetActions`, & `addUserActions`
 
@@ -605,7 +605,7 @@ If your plugin has a Craft 2 counterpart and there’s a chance people will be u
 
 First, establish whether Craft will consider your plugin to be an **update** or a **new installation**. Craft will consider it to be an **update** if your plugin handle is equal to its former class name, minus the `Plugin` suffix. (Casing changes are OK here, so if your Craft 2 version’s class name was `FooBarPlugin`, and the Craft 3 version’s handle is `fooBar`, those would be considered equal.)
 
-#### In Case of Update 
+#### In Case of Update
 
 If Craft will consider your plugin to be at **update** of its previous version, create a new [migration](plugin-migrations.md) named something like “`craft3_upgrade`”.
 
@@ -613,7 +613,7 @@ Your upgrade code will go directly in its `safeUp()` method.
 
 #### In Case of New Installation
 
-If Craft will consider your plugin to be a **new installation**, create an [Install migration](plugin-migrations.md#install-migrations) with the following code in the `safeUp()` method: 
+If Craft will consider your plugin to be a **new installation**, create an [Install migration](plugin-migrations.md#install-migrations) with the following code in the `safeUp()` method:
 
 ```php
 public function safeUp()
@@ -627,15 +627,15 @@ public function safeUp()
 
     if ($row !== false)) {
         // The plugin was installed
-        
+
         // Update this one's settings to old values
         $this->update('{{%plugins}}', [
             'settings' => $row['settings']
         ], ['handle' => 'newhandle']);
-        
+
         // Delete the old row
         $this->delete('{{%plugins}}', ['id' => $row['id']]);
-        
+
         // Upgrade code...
     }
 }

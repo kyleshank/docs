@@ -46,10 +46,10 @@ Once everything’s in order, follow these steps to update Craft:
         composer require craftcms/plugin-installer
 
 4. Once all the files are in place, replace the contents of your `public/index.php` file (or `public_htm/index.php`, etc.) with this code: (Be sure to preserve any PHP constants and other custom code you may have.)
- 
+
     ```php
     <?php
- 
+
     // Project root path
     $root = dirname(__DIR__);
 
@@ -162,7 +162,7 @@ Support for Amazon S3, Rackspace Cloud Files, and Google Cloud Storage have been
 
 - [Amazon S3](https://github.com/craftcms/aws-s3)
 - [Rackspace Cloud Files](https://github.com/craftcms/rackspace)
-- *Google Cloud Storage coming soon*  
+- *Google Cloud Storage coming soon*
 
 ## User Photos
 
@@ -184,7 +184,7 @@ Craft 3 uses Twig 2, which has its own breaking changes for templates:
 #### Macros
 
 Twig 1 let you call macros defined by the same template using `_self.macroName()`:
- 
+
 ```twig
 {% macro foo %}...{% endmacro %}
 
@@ -206,7 +206,7 @@ Or all of them:
 #### Undefined Blocks
 
 Twig 1 let you call `block()` even for blocks that didn’t exist:
- 
+
 ```twig
 {% if block('foo') is not empty %}
     {{ block('foo') }}
@@ -487,7 +487,7 @@ Old                | New
 ## Request Params
 
 Your front-end `<form>`s and JS scripts that submit to a controller action will need to be updated with the following changes.
- 
+
 ### `action` Params
 
 `action` params must be rewritten in in `snake-case` rather than `camelCase`.

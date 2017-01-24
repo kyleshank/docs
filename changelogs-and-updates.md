@@ -28,7 +28,7 @@ If an update should be marked as critical, you can append a `[CRITICAL]` flag to
 ```markdown
 ## 2.0.1 - 2017-01-21 [CRITICAL]
 ### Fixed
-- Reverted change to `$potus` due to security vulnerabilities 
+- Reverted change to `$potus` due to security vulnerabilities
 ```
 
 Any H2s that don’t follow these rules will be ignored, including any content that follows them leading up to the next H2.
@@ -75,7 +75,7 @@ class Plugin extends \craft\base\Plugin
 {
     public $changelogUrl = 'https://raw.githubusercontent.com/pixelandtonic/foo/master/CHANGELOG.md';
     public $downloadUrl = 'https://github.com/pixelandtonic/foo/archive/master.zip';
-    
+
     // ...
 }
 ```

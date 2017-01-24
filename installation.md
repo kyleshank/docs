@@ -12,9 +12,9 @@ Installation Instructions
 Craft 3 is available as a [Composer] package, and for the duration of the Beta, Composer is the only way to install Craft 3. (We’ll introduce an alternate, non-Composer installation method once it’s out of Beta.) If you’re unfamiliar with Composer, it’s a package manager for PHP, meaning it’s a tool that attempts to make installing and updating PHP libraries (like Craft) a simple terminal command away.
 
 Craft’s Composer support is made up of three parts:
- 
+
 1. **[`craftcms/cms`]** – Composer *package* that contains all of Craft’s source code and bootstrap scripts.
-2. **[`craftcms/plugin-installer`]** – Custom Composer *installer* that makes it possible to install Craft plugins with Composer. 
+2. **[`craftcms/plugin-installer`]** – Custom Composer *installer* that makes it possible to install Craft plugins with Composer.
 2. **[`craftcms/craft`]** – Composer *project* that can be installed as a starting point for new Craft projects, with the `cms` and `plugin-installer` dependencies already in place.
 
 ## 1. Install Composer
@@ -36,7 +36,7 @@ If that outputs a file path(s), Composer is installed. Otherwise you will need t
 
 ## 2. Create a New Craft Project
 
-To create a new Craft project, simply run this command (substituting `PATH` with the path the project should be created at): 
+To create a new Craft project, simply run this command (substituting `PATH` with the path the project should be created at):
 
     composer create-project craftcms/craft PATH
 
@@ -76,7 +76,7 @@ If you’re given a choice, we recommend the following database settings in most
   - Character Set: `UTF8`
 
 Once the database is created, you’ll need to configure Craft with its connection settings. Copy the `.env.example` file at the root of your Craft project to a new `.env` file, and fill in your database connection settings within it.
- 
+
 > {tip} That `.env` file will be processed via [PHP dotenv], which the `craftcms/craft` project comes with preinstalled. The advantage of using PHP dotenv is that it offers a place to store sensitive information (like database connection settings) in a file that doesn’t get committed to your Git repository.
 
 ## 4. Set up the Web Server

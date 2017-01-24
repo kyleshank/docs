@@ -29,7 +29,7 @@ The migration file contains a class with two methods: `safeUp()` and `saveDown()
 ### Logging
 
 If you want to log any messages in your migration code, echo it out rather than calling `Craft::info()`:
- 
+
 ```php
 echo "    > some note\n";
 ```
@@ -46,7 +46,7 @@ To execute your plugin’s migrations, you’ll need to increase its schema vers
 class Plugin extends \craft\base\Plugin
 {
     public $schemaVersion = '1.0.1';
-    
+
     // ...
 }
 ```
@@ -71,7 +71,7 @@ class Install extends \craft\db\Migration
     {
         // ...
     }
-    
+
     public function safeDown()
     {
         // ...

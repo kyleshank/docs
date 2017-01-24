@@ -19,7 +19,7 @@ Technically, plugins are a superset of [Yii Modules], which means they can have 
 
 The main benefits of Craft Plugins over Yii Modules are:
 
-- Plugins can be installed, updated, and uninstalled. 
+- Plugins can be installed, updated, and uninstalled.
 - Plugins can have their own migrations, managed separately from Craft and content migrations.
 - Plugins can have a global template variable, accessed from `craft.pluginHandle`.
 - Plugins can have their own section in the Control Panel.
@@ -90,7 +90,7 @@ Here’s a full list of the properties that can go in that `extra` object:
 
 - `handle` – The plugin handle (required).
 - `class` – The [primary Plugin class](#primary-plugin-class) name. If not set, the installer will look for a `Plugin.php` file at each of the `autoload` path roots.
-- `basePath` – The base path to your plugin’s source files. This can begin with one of your `autoload` namespaces, formatted as a [Yii alias] (e.g. `@vendorname/foo`). If not set, the directory that contains your primary Plugin class will be used.    
+- `basePath` – The base path to your plugin’s source files. This can begin with one of your `autoload` namespaces, formatted as a [Yii alias] (e.g. `@vendorname/foo`). If not set, the directory that contains your primary Plugin class will be used.
 - `name` – The plugin name. If not set, the package name (sans vendor prefix) will be used.
 - `version` - The plugin version. If not set, the current package version will be used.
 - `schemaVersion` – The plugin schema version.
@@ -122,7 +122,7 @@ class Plugin extends \craft\base\Plugin
     public function init()
     {
         parent::init();
-        
+
         // Custom initialization code goes here...
     }
 }
@@ -133,7 +133,7 @@ Replace `root\namespace` with the namespace you chose in your `composer.json` fi
 ### Loading your plugin into Craft
 
 There are two ways to make your plugin visible to Craft:
- 
+
 1. Move/symlink the plugin into your `plugins/` folder
 2. Set your plugin up as a Composer dependency
 
@@ -172,12 +172,12 @@ In your terminal, go to your Craft project and tell Composer to require your plu
 > composer require package/name
 ```
 
-> {note} One caveat of `path` Composer repositories is that Composer is not too smart about keeping their dependencies updated when calling `composer update`. You may need to remove and re-require your plugin in your Craft project each time its dependencies change. 
+> {note} One caveat of `path` Composer repositories is that Composer is not too smart about keeping their dependencies updated when calling `composer update`. You may need to remove and re-require your plugin in your Craft project each time its dependencies change.
 
 ## Plugin Icons
 
 Plugins can provide an icon, which will be visible on the Settings → Plugins page.
- 
+
 <img src="assets/plugin-index.png" width="1159" alt="The Settings → Plugins page in Craft’s Control Panel.">
 
 Plugin icons must be square SVG files, saved as `icon.svg` at the root of your plugin’s source directory (e.g `src/`).
