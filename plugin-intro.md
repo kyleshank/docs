@@ -65,7 +65,7 @@ Use this template as a starting point for your `composer.json` file:
   },
   "autoload": {
     "psr-4": {
-      "root\\namespace\\": "src/"
+      "ns\\prefix\\": "src/"
     }
   },
   "extra": {
@@ -80,7 +80,7 @@ Use this template as a starting point for your `composer.json` file:
 Replace:
 
 - `package/name` with your package name.
-- `root\\namespace\\` with your namespace prefix. (Use double-backslashes because JSON.)
+- `ns\\prefix\\` with your namespace prefix. (Use double-backslashes because JSON, and note this must end with `\\`.)
 - `pluginHandle` with your plugin handle.
 - `Plugin Name` with your plugin name.
 - `Developer Name` with your name, or the organization name that the plugin should be attributed to.
@@ -101,6 +101,8 @@ Here’s a full list of the properties that can go in that `extra` object:
 - `changelogUrl` – The plugin’s changelog URL (used to show pending plugin updates and their release notes).
 - `downloadUrl` – The plugin’s download URL (used to update manual installations of the plugin).
 - `sourceLanguage` – The plugin’s source language (defaults to `en-US`).
+- `hasSettings` – Whether the plugin has settings (should be `true` or `false`).
+- `hasCpSection` – Whether the plugin has its own section in the Control Panel (should be `true` or `false`).
 - `components` – Object defining any [component configs] that should be present on the plugin.
 
 > {note} Don’t include `composer/installers` as a Composer dependency.
@@ -113,7 +115,7 @@ Use this template as a starting point for your `Plugin.php` file:
 
 ```php
 <?php
-namespace root\namespace;
+namespace ns\prefix;
 
 use Craft;
 
@@ -128,7 +130,7 @@ class Plugin extends \craft\base\Plugin
 }
 ```
 
-Replace `root\namespace` with the namespace you chose in your `composer.json` file (with single-backslashes and without any trailing backslashes).
+Replace `ns\prefix` with your plugin’s namespace prefix.
 
 ### Loading your plugin into Craft
 

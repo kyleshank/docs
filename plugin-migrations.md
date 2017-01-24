@@ -63,7 +63,7 @@ Plugins can have a special “Install” migration which handles the installatio
 
 ```php
 <?php
-namespace namesspace\prefix\migrations;
+namespace ns\prefix\migrations;
 
 class Install extends \craft\db\Migration
 {

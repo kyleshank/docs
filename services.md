@@ -27,7 +27,7 @@ Open the file in your text editor and use this template as its starting point:
 ```php
 <?php
 
-namespace vendor\pluginhandle\services;
+namespace ns\prefix\services;
 
 use Craft;
 use yii\base\Component;
