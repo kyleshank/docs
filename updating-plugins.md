@@ -114,6 +114,8 @@ Craft no longer auto-prepends the DB table prefix to table names, so you must wr
 Select queries are defined by `craft\db\Query` classes now.
 
 ```php
+use craft\db\Query;
+
 $results = (new Query())
     ->select(['column1', 'column2'])
     ->from(['{{%tablename}}'])
@@ -205,16 +207,16 @@ public function addRichTextLinkOptions()
 }
 
 // New:
-yii\base\Event::on(
-    craft\fields\RichText::class,
-    craft\fields\RichText::EVENT_REGISTER_LINK_OPTIONS,
-    function(craft\events\RegisterRichTextLinkOptionsEvent $event) {
-        $event->linkOptions[] = [
-            'optionTitle' => Craft::t('commerce', 'Link to a product'),
-            'elementType' => Product::class,
-        ];
-    }
-);
+use yii\base\Event;
+use craft\fields\RichText;
+use craft\events\RegisterRichTextLinkOptionsEvent;
+
+Event::on(RichText::class, RichText::EVENT_REGISTER_LINK_OPTIONS, function(RegisterRichTextLinkOptionsEvent $event) {
+    $event->linkOptions[] = [
+        'optionTitle' => Craft::t('commerce', 'Link to a product'),
+        'elementType' => Product::class,
+    ];
+});
 ```
 
 #### `addTwigExtension`
@@ -248,18 +250,18 @@ public function addUserAdministrationOptions(UserModel $user)
 }
 
 // New:
-yii\base\Event::on(
-    craft\controllers\UsersController::class,
-    craft\controllers\UsersController::EVENT_REGISTER_USER_ACTIONS,
-    function(craft\events\RegisterUserActionsEvent $event) {
-        if ($event->user->isCurrent) {
-            $event->miscActions[] = [
-                'label' => Craft::t('baconater', 'Send Bacon'),
-                'action' => 'baconater/send-bacon'
-            ];
-        }
+use yii\base\Event;
+use craft\controllers\UsersController;
+use craft\events\RegisterUserActionsEvent;
+
+Event::on(UsersController::class, UsersController::EVENT_REGISTER_USER_ACTIONS, function(RegisterUserActionsEvent $event) {
+    if ($event->user->isCurrent) {
+        $event->miscActions[] = [
+            'label' => Craft::t('baconater', 'Send Bacon'),
+            'action' => 'baconater/send-bacon'
+        ];
     }
-);
+});
 ```
 
 #### `getResourcePath`
@@ -274,18 +276,18 @@ public function getResourcePath($path)
 }
 
 // New:
-yii\base\Event::on(
-    craft\services\Resources::class,
-    craft\services\Resources::EVENT_RESOLVE_RESOURCE_PATH,
-    function(craft\events\ResolveResourcePathEvent $event) {
-        if (strpos($event->uri, 'myplugin/') === 0) {
-            $event->path = Craft::$app->path->getStoragePath().'/myplugin/'.substr($event->uri, 9);
+use yii\base\Event;
+use craft\services\Resources;
+use craft\events\ResolveResourcePathEvent;
 
-            // Prevent other event listeners from getting invoked
-            $event->handled = true;
-        }
+Event::on(Resources::class, Resources::EVENT_RESOLVE_RESOURCE_PATH, function(ResolveResourcePathEvent $event) {
+    if (strpos($event->uri, 'myplugin/') === 0) {
+        $event->path = Craft::$app->path->getStoragePath().'/myplugin/'.substr($event->uri, 9);
+
+        // Prevent other event listeners from getting invoked
+        $event->handled = true;
     }
-);
+});
 ```
 
 #### `modifyCpNav`
@@ -295,20 +297,26 @@ yii\base\Event::on(
 public function modifyCpNav(&$nav)
 {
     if (craft()->userSession->isAdmin()) {
-        $nav['utils'] = ['label' => 'Utils', 'url' => 'utils'];
+        $nav['foo'] = [
+            'label' => Craft::t('Foo'),
+            'url' => 'foo'
+        ];
     }
 }
 
 // New:
-yii\base\Event::on(
-    craft\web\twig\variables\Cp::class,
-    craft\web\twig\variables\Cp::EVENT_REGISTER_CP_NAV_ITEMS,
-    function(craft\events\RegisterCpNavItemsEvent $event) {
-        if (Craft::$app->user->identity->admin) {
-            $event->navItems['utils'] = ['label' => 'Utils', 'url' => 'utils'];
-        }
+use yii\base\Event;
+use craft\web\twig\variables\Cp;
+use craft\events\RegisterCpNavItemsEvent;
+
+Event::on(Cp::class, Cp::EVENT_REGISTER_CP_NAV_ITEMS, function(RegisterCpNavItemsEvent $event) {
+    if (Craft::$app->user->identity->admin) {
+        $event->navItems['foo'] = [
+            'label' => Craft::t('myplugin', 'Utils'),
+            'url' => 'utils'
+        ];
     }
-);
+});
 ```
 
 #### `registerCachePaths`
@@ -323,17 +331,17 @@ public function registerCachePaths()
 }
 
 // New:
-yii\base\Event::on(
-    craft\tools\ClearCaches::class,
-    craft\tools\ClearCaches::EVENT_REGISTER_CACHE_OPTIONS,
-    function(craft\events\RegisterCacheOptionsEvent $event) {
-        $event->options[] = [
-            'key' => 'drink-images',
-            'label' => Craft::t('drinks', 'Drink images'),
-            'action' => Craft::$app->path->getStoragePath().'/drinks'
-        ];
-    }
-);
+use yii\base\Event;
+use craft\utilities\ClearCaches;
+use craft\events\RegisterCacheOptionsEvent;
+
+Event::on(ClearCaches::class, ClearCaches::EVENT_REGISTER_CACHE_OPTIONS, function(RegisterCacheOptionsEvent $event) {
+    $event->options[] = [
+        'key' => 'drink-images',
+        'label' => Craft::t('drinks', 'Drink images'),
+        'action' => Craft::$app->path->getStoragePath().'/drinks'
+    ];
+});
 ```
 
 #### `registerEmailMessages`
@@ -346,17 +354,17 @@ public function registerEmailMessages()
 }
 
 // New:
-yii\base\Event::on(
-    craft\services\EmailMessages::class,
-    craft\services\EmailMessages::EVENT_REGISTER_MESSAGES,
-    function(craft\events\RegisterEmailMessagesEvent $event) {
-        $event->messages[] = [
-           'key' => 'custom_message_key',
-           'category' => 'myplugin',
-           'sourceLanguage' => 'en-US'
-       ];
-    }
-);
+use yii\base\Event;
+use craft\services\EmailMessages;
+use craft\events\RegisterEmailMessagesEvent;
+
+Event::on(EmailMessages::class, EmailMessages::EVENT_REGISTER_MESSAGES, function(RegisterEmailMessagesEvent $event) {
+    $event->messages[] = [
+        'key' => 'custom_message_key',
+        'category' => 'myplugin',
+        'sourceLanguage' => 'en-US'
+    ];
+});
 ```
 
 #### `registerUserPermissions`
@@ -372,16 +380,16 @@ public function registerUserPermissions()
 }
 
 // New:
-yii\base\Event::on(
-    craft\services\UserPermissions::class,
-    craft\services\UserPermissions::EVENT_REGISTER_PERMISSIONS,
-    function(craft\events\RegisterUserPermissionsEvent $event) {
-        $event->permissions[Craft::t('vices', 'Vices')] = [
-            'drinkAlcohol' => ['label' => Craft::t('vices', 'Drink alcohol')],
-            'stayUpLate' => ['label' => Craft::t('vices', 'Stay up late')],
-        ];
-    }
-);
+use yii\base\Event;
+use craft\services\UserPermissions;
+use craft\events\RegisterUserPermissionsEvent;
+
+Event::on(UserPermissions::class, UserPermissions::EVENT_REGISTER_PERMISSIONS, function(RegisterUserPermissionsEvent $event) {
+    $event->permissions[Craft::t('vices', 'Vices')] = [
+        'drinkAlcohol' => ['label' => Craft::t('vices', 'Drink alcohol')],
+        'stayUpLate' => ['label' => Craft::t('vices', 'Stay up late')],
+    ];
+});
 ```
 
 #### `getCpAlerts`
@@ -396,15 +404,15 @@ public function getCpAlerts($path, $fetch)
 }
 
 // New:
-yii\base\Event::on(
-    craft\helpers\Cp::class,
-    craft\helpers\Cp::EVENT_REGISTER_ALERTS,
-    function(craft\events\RegisterCpAlertsEvent $event) {
-        if (Craft::$app->config->get('devMode')) {
-            $event->alerts[] = Craft::t('myplugin', 'Dev Mode is enabled!');
-        }
+use yii\base\Event;
+use craft\helpers\Cp;
+use craft\events\RegisterCpAlertsEvent;
+
+Event::on(Cp::class, Cp::EVENT_REGISTER_ALERTS, function(RegisterCpAlertsEvent $event) {
+    if (Craft::$app->config->get('devMode')) {
+        $event->alerts[] = Craft::t('myplugin', 'Dev Mode is enabled!');
     }
-);
+});
 ```
 
 #### `modifyAssetFilename`
@@ -417,16 +425,16 @@ public function modifyAssetFilename($filename)
 }
 
 // New:
-yii\base\Event::on(
-    craft\helpers\Assets::class,
-    craft\helpers\Assets::EVENT_SET_FILENAME,
-    function(craft\events\SetElementTableAttributeHtmlEvent $event) {
-        $event->filename = 'KittensRule-'.$event->filename;
+use yii\base\Event;
+use craft\helpers\Assets;
+use craft\events\SetElementTableAttributeHtmlEvent;
 
-        // Prevent other event listeners from getting invoked
-        $event->handled = true;
-    }
-);
+Event::on(Assets::class, Assets::EVENT_SET_FILENAME, function(SetElementTableAttributeHtmlEvent $event) {
+    $event->filename = 'KittensRule-'.$event->filename;
+
+    // Prevent other event listeners from getting invoked
+    $event->handled = true;
+});
 ```
 
 ### Routing Hooks
@@ -444,14 +452,14 @@ public function registerCpRoutes()
 }
 
 // New:
-yii\base\Event::on(
-    craft\web\UrlManager::class,
-    craft\web\UrlManager::EVENT_REGISTER_CP_URL_RULES,
-    function(craft\events\RegisterUrlRulesEvent $event) {
-        $event->rules['cocktails/new'] = ['template' => 'cocktails/_edit'];
-        $event->rules['cocktails/<widgetId:\d+>'] = 'cocktails/edit-cocktail';
-    }
-);
+use yii\base\Event;
+use craft\web\UrlManager;
+use craft\events\RegisterUrlRulesEvent;
+
+Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event) {
+    $event->rules['cocktails/new'] = ['template' => 'cocktails/_edit'];
+    $event->rules['cocktails/<widgetId:\d+>'] = 'cocktails/edit-cocktail';
+});
 ```
 
 #### `registerSiteRoutes`
@@ -467,14 +475,14 @@ public function registerSiteRoutes()
 }
 
 // New:
-yii\base\Event::on(
-    craft\web\UrlManager::class,
-    craft\web\UrlManager::EVENT_REGISTER_SITE_URL_RULES,
-    function(craft\events\RegisterUrlRulesEvent $event) {
-        $event->rules['cocktails/new'] = ['template' => 'cocktails/_edit'];
-        $event->rules['cocktails/<widgetId:\d+>'] = 'cocktails/edit-cocktail';
-    }
-);
+use yii\base\Event;
+use craft\web\UrlManager;
+use craft\events\RegisterUrlRulesEvent;
+
+Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_SITE_URL_RULES, RegisterUrlRulesEvent $event) {
+    $event->rules['cocktails/new'] = ['template' => 'cocktails/_edit'];
+    $event->rules['cocktails/<widgetId:\d+>'] = 'cocktails/edit-cocktail';
+});
 ```
 
 #### `getElementRoute`
@@ -486,28 +494,28 @@ public function getElementRoute(BaseElementModel $element)
     if (
         $element->getElementType() === ElementType::Entry &&
         $element->getSection()->handle === 'products'
-    )
-    {
+    ) {
         return ['action' => 'products/viewEntry'];
     }
 }
 
 // New:
-yii\base\Event::on(
-    craft\elements\Entry::class,
-    craft\base\Element::EVENT_SET_ROUTE,
-    function(craft\elements\SetElementRouteEvent $event) {
-        /** @var craft\elements\Entry $entry */
-        $entry = $event->sender;
+use yii\base\Event;
+use craft\elements\Entry;
+use craft\base\Element;
+use craft\elements\SetElementRouteEvent;
 
-        if ($entry->section->handle === 'products') {
-            $event->route = 'products/view-entry';
+Event::on(Entry::class, Element::EVENT_SET_ROUTE, function(SetElementRouteEvent $event) {
+    /** @var craft\elements\Entry $entry */
+    $entry = $event->sender;
 
-            // Prevent other event listeners from getting invoked
-            $event->handled = true;
-        }
+    if ($entry->section->handle === 'products') {
+        $event->route = 'products/view-entry';
+
+        // Prevent other event listeners from getting invoked
+        $event->handled = true;
     }
-);
+});
 ```
 
 ### Element Hooks
@@ -526,13 +534,13 @@ public function addEntryActions($source)
 }
 
 // New:
-yii\base\Event::on(
-    craft\elements\Entry::class,
-    craft\base\Element::EVENT_REGISTER_ACTIONS,
-    function(craft\events\RegisterElementActionsEvent $event) {
-        $event->actions[] = new MyElementAction();
-    }
-);
+use yii\base\Event;
+use craft\elements\Entry;
+use craft\events\RegisterElementActionsEvent;
+
+Event::on(Entry::class, Element::EVENT_REGISTER_ACTIONS, function(RegisterElementActionsEvent $event) {
+    $event->actions[] = new MyElementAction();
+});
 ```
 
 #### `modifyEntrySortableAttributes`, `modifyCategorySortableAttributes`, `modifyAssetSortableAttributes`, & `modifyUserSortableAttributes`
@@ -545,13 +553,14 @@ public function modifyEntrySortableAttributes(&$attributes)
 }
 
 // New:
-yii\base\Event::on(
-    craft\elements\Entry::class,
-    craft\base\Element::EVENT_REGISTER_SORTABLE_ATTRIBUTES,
-    function(craft\events\RegisterElementSortableAttributesEvent $event) {
-        $event->sortableAttributes['id'] = Craft::t('app', 'ID');
-    }
-);
+use yii\base\Event;
+use craft\elements\Entry;
+use craft\base\Element;
+use craft\events\RegisterElementSortableAttributesEvent;
+
+Event::on(Entry::class, Element::EVENT_REGISTER_SORTABLE_ATTRIBUTES, function(RegisterElementSortableAttributesEvent $event) {
+    $event->sortableAttributes['id'] = Craft::t('app', 'ID');
+});
 ```
 
 #### `modifyEntrySources`, `modifyCategorySources`, `modifyAssetSources`, & `modifyUserSources`
@@ -577,26 +586,25 @@ public function modifyEntrySources(&$sources, $context)
 }
 
 // New:
-yii\base\Event::on(
-    craft\elements\Entry::class,
-    craft\base\Element::EVENT_REGISTER_SOURCES,
-    function(craft\events\RegisterElementSourcesEvent $event) {
-        if ($event->context === 'index') {
-            $sources[] = [
-                'heading' => Craft::t('myplugin', 'Statuses'),
-            ];
+use yii\base\Event;
+use craft\elements\Entry;
+use craft\events\RegisterElementSourcesEvent;
 
-            $statuses = craft\elements\Entry::statuses();
-            foreach ($statuses as $status => $label) {
-                $sources[] = [
-                    'key' => 'status:'.$status,
-                    'label' => $label,
-                    'criteria' => ['status' => $status]
-                ];
-            }
+Event::on(Entry::class, Element::EVENT_REGISTER_SOURCES, function(RegisterElementSourcesEvent $event) {
+    if ($event->context === 'index') {
+        $sources[] = [
+            'heading' => Craft::t('myplugin', 'Statuses'),
+        ];
+
+        foreach (Entry::statuses() as $status => $label) {
+            $sources[] = [
+                'key' => 'status:'.$status,
+                'label' => $label,
+                'criteria' => ['status' => $status]
+            ];
         }
     }
-);
+});
 ```
 
 #### `defineAdditionalEntryTableAttributes`, `defineAdditionalCategoryTableAttributes`, `defineAdditionalAssetTableAttributes`, & `defineAdditionalUserTableAttributes`
@@ -612,14 +620,14 @@ public function defineAdditionalEntryTableAttributes()
 }
 
 // New:
-yii\base\Event::on(
-    craft\elements\Entry::class,
-    craft\base\Element::EVENT_REGISTER_TABLE_ATTRIBUTES,
-    function(craft\events\RegisterElementTableAttributesEvent $event) {
-        $event->tableAttributes['foo'] = ['label' => Craft::t('myplugin', 'Foo')];
-        $event->tableAttributes['bar'] = ['label' => Craft::t('myplugin', 'Bar')];
-    }
-);
+use yii\base\Event;
+use craft\elements\Entry;
+use craft\events\RegisterElementTableAttributesEvent;
+
+Event::on(Entry::class, Element::EVENT_REGISTER_TABLE_ATTRIBUTES, function(RegisterElementTableAttributesEvent $event) {
+    $event->tableAttributes['foo'] = ['label' => Craft::t('myplugin', 'Foo')];
+    $event->tableAttributes['bar'] = ['label' => Craft::t('myplugin', 'Bar')];
+});
 ```
 
 #### `getEntryTableAttributeHtml`, `getCategoryTableAttributeHtml`, `getAssetTableAttributeHtml`, & `getUserTableAttributeHtml`
@@ -634,21 +642,22 @@ public function getEntryTableAttributeHtml(EntryModel $entry, $attribute)
 }
 
 // New:
-yii\base\Event::on(
-    craft\elements\Entry::class,
-    craft\base\Element::EVENT_SET_TABLE_ATTRIBUTE_HTML,
-    function(craft\events\SetElementTableAttributeHtmlEvent $event) {
-        if ($event->attribute === 'price') {
-            /** @var craft\elements\Entry $entry */
-            $entry = $event->sender;
+use yii\base\Event;
+use craft\elements\Entry;
+use craft\base\Element;
+use craft\events\SetElementTableAttributeHtmlEvent;
 
-            $event->html = '$'.$entry->price;
+Event::on(Entry::class, Element::EVENT_SET_TABLE_ATTRIBUTE_HTML, function(SetElementTableAttributeHtmlEvent $event) {
+    if ($event->attribute === 'price') {
+        /** @var Entry $entry */
+        $entry = $event->sender;
 
-            // Prevent other event listeners from getting invoked
-            $event->handled = true;
-        }
+        $event->html = '$'.$entry->price;
+
+        // Prevent other event listeners from getting invoked
+        $event->handled = true;
     }
-);
+});
 ```
 
 #### `getTableAttributesForSource`
