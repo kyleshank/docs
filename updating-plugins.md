@@ -21,6 +21,7 @@ The end result is a faster, leaner, and much more elegant codebase for core deve
   - [Select Queries](#select-queries)
   - [Operational Queries](#operational-queries)
 - [Files](#files)
+- [Events](#events)
 - [Plugin Hooks](#plugin-hooks)
   - [General Hooks](#general-hooks)
   - [Routing Hooks](#routing-hooks)
@@ -114,6 +115,51 @@ $result = Craft::$app->db->createCommand()
 - `Craft\IOHelper` has been replaced with `craft\helpers\FileHelper`, which extends Yii’s `yii\helpers\BaseFileHelper`.
 - Directory paths returned by `craft\helpers\FileHelper` and `craft\services\Path` methods no longer include a trailing slash.
 - File system paths in Craft now use the `DIRECTORY_SEPARATOR` PHP constant (which is set to either `/` or `\` depending on the environment) rather than hard-coded forward slashes (`/`).
+
+## Events
+
+The traditional way of registering events in Craft 2/Yii 1 was:
+
+```php
+$component->onEventName = $callback;
+```
+
+This would directly register the event listener on the component.
+
+In Craft 3/Yii 2, use [`yii\base\Component::on()`](http://www.yiiframework.com/doc-2.0/yii-base-component.html#on()-detail) instead:
+
+```php
+$component->on('eventName', $callback);
+```
+
+Craft 2 also provided a `craft()->on()` method, which could be used to register events on a service class, without forcing the service to be instantiated if it wasn’t already:
+
+```php
+craft()->on('elements.beforeSaveElement', $callback);
+```
+
+There is no direct equivalent in Craft 3, partly because `Craft::$app->on()` is already a thing (`yii\base\Component::on()`), and partly because Yii 2 already provides a nice solution for registering events on classes regardless of whether they’ve been instantiated yet, and it works for more than just services: [class-level event handlers](http://www.yiiframework.com/doc-2.0/guide-concept-events.html#class-level-event-handlers).
+
+```php
+use yii\base\Event;
+use craft\services\Elements;
+
+Event::on(Elements::class, Elements::EVENT_BEFORE_SAVE_ELEMENT, $callback);
+```
+
+In addition to services, you can use class-level event handlers for components that may not be initialized yet, or where tracking down a reference to them is not straightforward.
+
+For example, if you want to be notified every time a Matrix field is saved, you could do this:
+
+```php
+use yii\base\Event;
+use craft\events\ModelEvent;
+use craft\fields\Matrix;
+
+Event::on(Matrix::class, Matrix::EVENT_AFTER_SAVE, function(ModelEvent $event) {
+    // ...
+});
+```
 
 ## Plugin Hooks
 
