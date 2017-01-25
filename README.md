@@ -38,6 +38,7 @@ Craft 3 Documentation
 - [Changelogs and Updates](changelogs-and-updates.md)
 - [Plugin Settings](plugin-settings.md)
 - [Control Panel Section](cp-section.md)
+- [Front End Resources](resources.md)
 - [Services](services.md)
 - Widget Types
 - Field Types

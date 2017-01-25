@@ -25,6 +25,7 @@ The end result is a faster, leaner, and much more elegant codebase for core deve
   - [General Hooks](#general-hooks)
   - [Routing Hooks](#routing-hooks)
   - [Element Hooks](#element-hooks)
+- [Resource Requests](#resource-requests)
 - [Writing an Upgrade Migration](#writing-an-upgrade-migration)
   - [Setting it up](#setting-it-up)
   - [Component Class Names](#component-class-names)
@@ -594,6 +595,10 @@ public function getTableAttributesForSource($elementType, $sourceKey)
 ```
 
 > {note} There is no direct Craft 3 equivalent for this hook, which allowed plugins to completely change the table attributes for an element type right before the element index view was rendered. The closest thing in Craft 3 is the `craft\base\Element::EVENT_REGISTER_TABLE_ATTRIBUTES` event, which can be used to change the available table attributes for an element type when an admin is customizing the element index sources.
+
+## Resource Requests
+
+Resource requests (requests to URLs created by `UrlHelper::resourceUrl()`) no longer serve files within Craft’s or plugins’ `resources/` directories. See [Front End Resources](resources.md) for information about working with front end resources.
 
 ## Writing an Upgrade Migration
 
