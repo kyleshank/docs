@@ -14,6 +14,7 @@ The end result is a faster, leaner, and much more elegant codebase for core deve
 > {note} If you think something is missing, please [create an issue](https://github.com/craftcms/docs/issues/new).
 
 - [High Level Notes](#high-level-notes)
+- [Yii 2](#yii-2)
 - [Service Names](#service-names)
 - [Translations](#translations)
 - [DB Queries](#db-queries)
@@ -34,11 +35,33 @@ The end result is a faster, leaner, and much more elegant codebase for core deve
 
 ## High Level Notes
 
+- Craft is now built on Yii 2.
 - The main application instance is available via `Craft::$app` now, rather than `craft()`.
 - Plugins must now have a `composer.json` file that defines some basic info about the plugin.
 - Plugins now get their own root namespace, rather than sharing a `Craft\` namespace with all of Craft and other plugins, and all Craft and plugin code must follow the [PSR-4](http://www.php-fig.org/psr/psr-4/) specification.
 - Plugins are now an extension of [Yii modules](http://www.yiiframework.com/doc-2.0/guide-structure-modules.html).
 
+## Yii 2
+
+Yii, the framework Craft is built on, was completely rewritten for 2.0. See its comprehensive [upgrade guide](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html) to learn about how things have changed under the hood.
+
+Relevant sections:
+
+- [Namespace](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#namespace)
+- [Component and Object](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#component-and-object)
+- [Object Configuration](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#object-configuration)
+- [Events](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#events)
+- [Path Aliases](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#path-aliases)
+- [Models](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#models)
+- [Controllers](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#controllers)
+- [Console Applications](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#console-applications)
+- [I18N](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#i18n)
+- [Assets](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#assets)
+- [Helpers](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#helpers)
+- [Query Builder](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#query-builder)
+- [Active Record](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#active-record)
+- [Active Record Behaviors](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#active-record-behaviors)
+- [User and IdentityInterface](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html#user-and-identityinterface)
 
 ## Service Names
 
