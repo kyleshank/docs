@@ -506,7 +506,7 @@ use craft\base\Element;
 use craft\elements\SetElementRouteEvent;
 
 Event::on(Entry::class, Element::EVENT_SET_ROUTE, function(SetElementRouteEvent $event) {
-    /** @var craft\elements\Entry $entry */
+    /** @var Entry $entry */
     $entry = $event->sender;
 
     if ($entry->section->handle === 'products') {
