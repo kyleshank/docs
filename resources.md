@@ -3,9 +3,9 @@ Front-End Resources
 
 Plugins, like Craft, are supposed to be installed above the web root, which ensures that their files can’t be accessed directly via HTTP requests. Generally that’s a Very Good Thing, because it protects Craft sites from a whole host of security vulnerabilities.
 
-There’s one case where it would be nice if HTTP requests could access Craft/plugin files directly though: front-end resources, such as CSS and JS files.
+There’s one case where it would be nice if HTTP requests *could* access Craft/plugin files directly though: front-end resources, such as CSS and JS files.
 
-Thankfully, Yii has a mechanism that for this called “[asset bundles](http://www.yiiframework.com/doc-2.0/guide-structure-assets.html)”. In a nutshell, an asset bundle is a class can publish a directory into the web root, making it available for front-end pages to consume via HTTP requests.
+Thankfully, Yii has a mechanism that helps with this, called “[asset bundles](http://www.yiiframework.com/doc-2.0/guide-structure-assets.html)”. In a nutshell, an asset bundle is a class that can publish an inaccessible directory some place below the web root, making it available for front-end pages to consume via HTTP requests.
 
 ## Setting it Up
 
