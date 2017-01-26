@@ -1,41 +1,101 @@
-Front End Resources
+Front-End Resources
 ===================
 
-If your plugin has any CSS, Javascript, images, or other front-end resources, you can place them in a `resources/` directory within your plugin’s source directory.
+Plugins, like Craft, are supposed to be installed above the web root, which ensures that their files can’t be accessed directly via HTTP requests. Generally that’s a Very Good Thing, because it protects Craft sites from a whole host of security vulnerabilities.
 
-There are multiple ways to work with these files.
+There’s one case where it would be nice if HTTP requests could access Craft/plugin files directly though: front-end resources, such as CSS and JS files.
 
-## Including CSS and JS Resources
+Thankfully, Yii has a mechanism that for this called “[asset bundles](http://www.yiiframework.com/doc-2.0/guide-structure-assets.html)”. In a nutshell, an asset bundle is a class can publish a directory into the web root, making it available for front-end pages to consume via HTTP requests.
 
-If you need to include one of your CSS or JS resources on the currently rendering page, use `craft\web\View::registerCssResource()` or `registerJsResource()`.
+## Setting it Up
 
-#### PHP
+First establish where you want your web-publishable files to live within your plugin. Give them a directory that’s just for them. This will be the asset bundle’s **source directory**. For this example, we’ll go with `resources/`.
 
-```php
-\Craft::$app->view->registerCssResource('pluginHandle/css/styles.css');
-\Craft::$app->view->registerJsResource('pluginHandle/js/script.js');
+Then, create a file that will hold your asset bundle class. This can be located and named whatever you want. We’ll go with `FooBundle` here.
+
+Here’s what your plugin’s structure should look like:
+
+```
+base_dir/
+  src/
+    FooBundle.php
+    resources/
+      script.js
+      styles.css
+      ...
 ```
 
-#### Twig
+Use this template as a starting point for your asset bundle class:
+
+```php
+<?php
+namespace ns\prefix;
+
+use craft\web\AssetBundle;
+use craft\web\assets\cp\CpAsset;
+
+class MyPluginAsset extends AssetBundle
+{
+    public function init()
+    {
+        // define the path that your publishable resources live
+        $this->sourcePath = '@ns/prefix/resources';
+
+        // define the dependencies
+        $this->depends = [
+            CpAsset::class,
+        ];
+
+        // define the relative path to CSS/JS files that should be registered with the page
+        // when this asset bundle is registered
+        $this->js = [
+            'script.js',
+        ];
+
+        $this->css = [
+            'styles.css',
+        ];
+
+        parent::init();
+    }
+}
+```
+
+## Registering the Asset Bundle
+
+With that in place, all that is left is to register the asset bundle wherever its JS/CSS files are needed.
+
+You can register it from a template using this code:
 
 ```twig
-{% do view.registerCssResource('pluginHandle/css/styles.css') %}
-{% do view.registerJsResource('pluginHandle/js/script.js') %}
+{% do view.registerAssetBundle("ns\\prefix\\FooBundle") %}
 ```
 
-> {note} Everything after `pluginHandle/` should be the resource path, relative to your `resources/` folder. 
-
-Those methods will automatically define an [asset bundle](http://www.yiiframework.com/doc-2.0/guide-structure-assets.html#asset-bundles) for you, whose base path is set to your plugin’s `resources/` directory. When it’s time to include your CSS/JS file on the page, your entire `resources/` directory will get published into the web root somewhere (if it wasn’t already published), and the published resource URL will be used in the HTML include tag.
-
-Craft provides a helper function, `UrlHelper::getResourceUrl('path/to/file.ext')`, which returns the URL to a resource file. Templates have a similar function: `{{ resourceUrl('path/to/file.ext') }}`. The URL returned by these functions will work even if the craft/ folder is placed above the web root.
-
-## Obtaining the URL to a Published Resource
-
-If you need to get the published URL of one of your resources, you can do that with the help of `craft\web\AssetManager::getPublishedUrl()`.
+Or if the request is getting routed to a custom controller action, you could register it from there, before your template gets rendered:
 
 ```php
-$dirUrl = \Craft::$app->assetManager->getPublishedUrl('@ns/prefix/resources', true);
-$resourceUrl = $dirUrl.'/images/foo.svg';
+use ns\prefix\FooBundle;
+
+public function actionFoo()
+{
+    $this->view->registerAssetBundle(FooBundle::class);
+    
+    return $this->renderTemplate('pluginHandle/foo');
+}
 ```
 
-> {note} Replace `ns/prefix` with your plugin’s namespace prefix, with forward-slashes instead of backslashes.
+## Getting Published File URLs
+
+If you have a one-off file that you need to get the published URL for, but it doesn’t need to be registered as a CSS or JS file on the current page, you can use `craft\web\AssetManager::getPublishedUrl()`:
+
+```php
+$url = Craft::$app->assetManager->getPublishedUrl('@ns/prefix/path/to/file.svg', true);
+```
+
+Craft will automatically publish the file for you (if it’s not published already), and return its URL.
+
+If the file lives within an asset bundle’s source directory, then only pass the source directory’s path into `getPublishedUrl()` and append the relative path after it. That way Craft won’t have to publish the file twice – (here, in addition to being published along with the rest of the asset bundle).
+
+```php
+$url = Craft::$app->assetManager->getPublishedUrl('@ns/prefix/resources', true).'/path/to/file.svg';
+```
