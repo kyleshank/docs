@@ -12,7 +12,7 @@ Craft 3 Documentation
 - [Server Requirements](requirements.md)
 - [Installation](installation.md)
 - [Configuration](configuration.md)
-- Directory Structure
+- [Directory Structure](directory-structure.md)
 
 ## Core Concepts
 
