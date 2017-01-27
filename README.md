@@ -45,5 +45,6 @@ Craft 3 Documentation
 - Element Types
 - Element Actions
 - Volume Types
+- Utility Types
 - Custom Component Types
 - [Plugin Migrations](plugin-migrations.md)
