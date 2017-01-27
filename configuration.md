@@ -5,6 +5,7 @@ Configuration
 - [General Config](#general-config)
 - [Database Config](#database-config)
 - [Data Caching Config](#data-caching-config)
+- [Guzzle Config](#guzzle-config)
 - [Overriding Volume Settings](#overriding-volume-settings)
 - [URL Rules](#url-rules)
 - [Redactor Configs](#redactor-configs)
@@ -37,6 +38,30 @@ Craft supports several database configuration settings. You can see a list of th
 ## Data Caching Config
 
 If you’re using APC, Database, File, or Memcache(d) data caching drivers (per the `cacheMethod` general config setting), you can set driver-specific settings. You can see a list of them in the corresponding file in `vendor/craftcms/cms/src/config/defaults/` (`apc.php`, `dbcache.php`, `filecache.php`, or `memcache.php`), and you can override the values by creating a file with the same name in your `config/` directory.
+
+## Guzzle Config
+
+Craft uses [Guzzle 6](http://docs.guzzlephp.org/en/latest/) whenever creating HTTP requests, such as:
+ 
+- when checking for Craft updates
+- when sending in a support request from the Craft Support widget
+- when loading RSS feeds from the Feeds widget
+- when working with assets on remote volumes, like Amazon S3
+
+You can customize the config settings Guzzle uses when sending these requests by creating a `guzzle.php` file in your `config/` folder. The file should return an array, with your config overrides.
+
+```php
+<?php
+
+return [
+    'defaults' => [
+        'headers' => ['Foo' => 'Bar'],
+        'query'   => ['testing' => '123'],
+        'auth'    => ['username', 'password'],
+        'proxy'   => 'tcp://localhost:80'
+    ]
+];
+```
 
 ## Overriding Volume Settings
 
