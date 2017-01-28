@@ -1,9 +1,9 @@
 Widget Types
 ============
 
-Plugins can supply custom widget types for the Dashboard by supplying a class that implements `craft\base\WidgetInterface`.
+Plugins can supply custom widget types for the Dashboard by supplying a class that implements `craft\base\WidgetInterface` and `craft\base\WidgetTrait`.
 
-As a convenience, widget classes can extend `craft\base\Widget`, which provides a base implementation of the interface.
+As a convenience, you can extend `craft\base\Widget`, which provides a base widget implementation.
 
 You can refer to Craft’s own widget classes for examples. They are located in `vendor/craftcms/cms/src/widgets/`.
 
