@@ -42,9 +42,9 @@ Craft 3 Documentation
 - [Services](services.md)
 - [Widget Types](widget-types.md)
 - [Field Types](field-types.md)
+- [Volume Types](volume-types.md)
+- Utility Types
 - Element Types
 - Element Actions
-- Volume Types
-- Utility Types
 - Custom Component Types
 - [Plugin Migrations](plugin-migrations.md)
