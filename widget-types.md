@@ -1,7 +1,7 @@
 Widget Types
 ============
 
-Plugins can supply custom widget types for the Dashboard by supplying a class that implements `craft\base\WidgetInterface` and `craft\base\WidgetTrait`.
+Plugins can provide custom widget types for the Dashboard by creating a class that implements `craft\base\WidgetInterface` and `craft\base\WidgetTrait`.
 
 As a convenience, you can extend `craft\base\Widget`, which provides a base widget type implementation.
 

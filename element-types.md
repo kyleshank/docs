@@ -1,7 +1,7 @@
 Element Types
 =============
 
-Plugins can supply custom element types by supplying a class that implements `craft\base\ElementInterface` and `craft\base\ElementTrait`.
+Plugins can provide custom element types by creating a class that implements `craft\base\ElementInterface` and `craft\base\ElementTrait`.
 
 As a convenience, you can extend `craft\base\Element`, which provides a base element type implementation.
 

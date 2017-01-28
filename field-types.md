@@ -1,7 +1,7 @@
 Field Types
 ===========
 
-Plugins can supply custom field types by supplying a class that implements `craft\base\FieldInterface` and `craft\base\FieldTrait`.
+Plugins can provide custom field types by creating a class that implements `craft\base\FieldInterface` and `craft\base\FieldTrait`.
 
 As a convenience, you can extend `craft\base\Field`, which provides a base field type implementation.
 

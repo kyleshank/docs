@@ -1,7 +1,7 @@
 Utility Types
 =============
 
-Plugins can supply custom utility types for the Utilities section by supplying a class that implements `craft\base\UtilityInterface`.
+Plugins can provide custom utility types for the Utilities section by creating a class that implements `craft\base\UtilityInterface`.
 
 As a convenience, you can extend `craft\base\Utility`, which provides a base utility type implementation.
 

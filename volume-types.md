@@ -1,7 +1,7 @@
 Volume Types
 ============
 
-Plugins can supply custom asset volume types by supplying a class that implements `craft\base\VolumeInterface` and `craft\base\VolumeTrait`.
+Plugins can provide custom asset volume types by creating a class that implements `craft\base\VolumeInterface` and `craft\base\VolumeTrait`.
 
 As a convenience, you can extend `craft\base\Volume`, which provides a base volume type implementation, optimized for [Flysystem](https://flysystem.thephpleague.com/) adapters.
 
