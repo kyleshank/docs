@@ -1,5 +1,5 @@
 Volume Types
-===========
+============
 
 Plugins can supply custom asset volume types by supplying a class that implements `craft\base\VolumeInterface` and `craft\base\VolumeTrait`.
 
