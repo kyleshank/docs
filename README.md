@@ -43,7 +43,7 @@ Craft 3 Documentation
 - [Widget Types](widget-types.md)
 - [Field Types](field-types.md)
 - [Volume Types](volume-types.md)
-- Utility Types
+- [Utility Types](utility-types.md)
 - Element Types
 - Element Actions
 - Custom Component Types
