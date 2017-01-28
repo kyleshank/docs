@@ -41,7 +41,7 @@ Craft 3 Documentation
 - [Front-End Resources](resources.md)
 - [Services](services.md)
 - [Widget Types](widget-types.md)
-- Field Types
+- [Field Types](field-types.md)
 - Element Types
 - Element Actions
 - Volume Types
