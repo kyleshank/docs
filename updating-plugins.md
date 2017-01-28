@@ -556,10 +556,10 @@ public function modifyEntrySortableAttributes(&$attributes)
 use yii\base\Event;
 use craft\elements\Entry;
 use craft\base\Element;
-use craft\events\RegisterElementSortableAttributesEvent;
+use craft\events\RegisterElementSortOptionsEvent;
 
-Event::on(Entry::class, Element::EVENT_REGISTER_SORTABLE_ATTRIBUTES, function(RegisterElementSortableAttributesEvent $event) {
-    $event->sortableAttributes['id'] = Craft::t('app', 'ID');
+Event::on(Entry::class, Element::EVENT_REGISTER_SORT_OPTIONS, function(RegisterElementSortOptionsEvent $event) {
+    $event->sortOptions['id'] = Craft::t('app', 'ID');
 });
 ```
 
