@@ -40,7 +40,7 @@ Craft 3 Documentation
 - [Control Panel Section](cp-section.md)
 - [Front-End Resources](resources.md)
 - [Services](services.md)
-- Widget Types
+- [Widget Types](widget-types.md)
 - Field Types
 - Element Types
 - Element Actions
