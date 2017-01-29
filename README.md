@@ -28,7 +28,7 @@ Craft 3 Documentation
 - Searching
 - Sites and Localization
 - Templates
-- Content Migrations
+- [Content Migrations](en/content-migrations.md)
 
 ## Plugin Development
 
