@@ -46,5 +46,4 @@ Craft 3 Documentation
 - [Utility Types](utility-types.md)
 - [Element Types](element-types.md)
 - [Element Action Types](element-action-types.md)
-- Custom Component Types
 - [Plugin Migrations](plugin-migrations.md)
