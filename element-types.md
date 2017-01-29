@@ -18,7 +18,7 @@ You can refer to these classes for examples. They are located in `vendor/craftcm
 If your plugin needs to provide a new content type, architecting it as an element type is usually the best way to go.
 
 - [Getting Started](#getting-started)
-  - [Element Type Class](#element-type-class)
+  - [Element Class](#element-class)
   - [Database Table](#database-table)
   - [Element Query Class](#element-query-class)
 - [Element Content](#element-content)
@@ -31,13 +31,13 @@ If your plugin needs to provide a new content type, architecting it as an elemen
   - [Sort Options](#sort-options)
   - [Table Attributes](#table-attributes)
   - [Thumb View](#thumb-view)
-- [Searchable Attributes](#search-attributes)
+- [Searchable Attributes](#searchable-attributes)
 - [Element URLs](#element-urls)
 - [Editing Elements](#editing-elements)
   - [Editor HUDs](#editor-huds)
   - [Edit Page](#edit-page)
-- [Relations]
-  - [Relation Field](relation-field.md)
+- [Relations](#relations)
+  - [Relation Field](#relation-field)
   - [Reference Tags](#reference-tags)
 - [Eager-Loading](#eager-loading)
 
@@ -204,6 +204,7 @@ With the element query class in place, the last step is to tie it into your elem
 ```php
 use craft\elements\db\ElementQueryInterface;
 use ns\prefix\elements\db\ProductQuery;
+
 // ...
 
 class Product
@@ -233,7 +234,7 @@ The reason for this separation is performance. It allows MySQL/PostgreSQL to fig
 
 ## Element Content
 
-If your elements should get their own rows in the `content` table, either because they should have [titles](#titles) or [custom fields](#custom-fields), add the static `hasContent()` method to your element class:
+If your elements should get their own rows in the `content` table, either because they should have [titles](#titles) or [custom fields](#custom-fields), add a static `hasContent()` method to your element class:
 
 ```php
 public static function hasContent(): bool
@@ -282,16 +283,7 @@ public function getEditorHtml(): string
 
 ### Custom Fields
 
-If you want your element type to support custom fields, first add a static `hasContent()` method to it:
-
-```php
-public static function hasContent(): bool
-{
-    return true;
-}
-```
-
-You will also need to create a page somewhere within the Control Panel for managing your element type’s field layout. Craft provides a template include that will output a Field Layout Designer for you:
+If you want your element type to support custom fields, you will also need to create a page somewhere within the Control Panel for managing your element type’s field layout. Craft provides a template include that will output a Field Layout Designer for you:
 
 ```twig
 {% include "_includes/fieldlayoutdesigner" with {
@@ -330,7 +322,7 @@ public function getFieldLayout()
 
 ### Localization
 
-If your elements’ title and custom field values should be stored on a per-site basis, add the static `isLocalized()` method:
+If your elements’ title and custom field values should be stored on a per-site basis, add a static `isLocalized()` method:
 
 ```php
 public static function isLocalized(): bool
@@ -339,7 +331,7 @@ public static function isLocalized(): bool
 }
 ```
 
-By default, elements will be stored in all sites. If an element should only be stored for certain sites, add the `getSupportedSites()` method to it.
+By default, elements will be stored in all sites. If an element should only be stored for certain sites, add a `getSupportedSites()` method to it.
 
 ```php
 public function getSupportedSites(): array
@@ -693,7 +685,7 @@ public static function refHandle()
 }
 ```
 
-To make it easier for users to copy your elements’ reference tags, you may want to add the “Copy reference tag” [action](#index-page-actions) to your element’s index page.
+To make it easier for users to copy your elements’ reference tags, you may want to add a “Copy reference tag” [action](#index-page-actions) to your element’s index page.
 
 ```php
 use craft\elements\actions\CopyReferenceTag;
