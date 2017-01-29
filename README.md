@@ -3,16 +3,16 @@ Craft 3 Documentation
 
 ## Introduction
 
-- [docs/About Craft CMS](introduction.md)
-- [docs/Code of Conduct](coc.md)
-- [docs/Upgrading from Craft 2](upgrade.md)
+- [About Craft CMS](docs/introduction.md)
+- [Code of Conduct](docs/coc.md)
+- [Upgrading from Craft 2](docs/upgrade.md)
 
 ## Getting Started
 
-- [docs/Server Requirements](requirements.md)
-- [docs/Installation](installation.md)
-- [docs/Configuration](configuration.md)
-- [docs/Directory Structure](directory-structure.md)
+- [Server Requirements](docs/requirements.md)
+- [Installation](docs/installation.md)
+- [Configuration](docs/configuration.md)
+- [Directory Structure](docs/directory-structure.md)
 
 ## Core Concepts
 
@@ -32,18 +32,18 @@ Craft 3 Documentation
 
 ## Plugin Development
 
-- [docs/Intro to Plugin Dev](plugin-intro.md)
-- [docs/Coding Guidelines](coding-guidelines.md)
-- [docs/Updating Plugins for Craft 3](updating-plugins.md)
-- [docs/Changelogs and Updates](changelogs-and-updates.md)
-- [docs/Plugin Settings](plugin-settings.md)
-- [docs/Control Panel Section](cp-section.md)
-- [docs/Front-End Resources](resources.md)
-- [docs/Services](services.md)
-- [docs/Widget Types](widget-types.md)
-- [docs/Field Types](field-types.md)
-- [docs/Volume Types](volume-types.md)
-- [docs/Utility Types](utility-types.md)
-- [docs/Element Types](element-types.md)
-- [docs/Element Action Types](element-action-types.md)
-- [docs/Plugin Migrations](plugin-migrations.md)
+- [Intro to Plugin Dev](docs/plugin-intro.md)
+- [Coding Guidelines](docs/coding-guidelines.md)
+- [Updating Plugins for Craft 3](docs/updating-plugins.md)
+- [Changelogs and Updates](docs/changelogs-and-updates.md)
+- [Plugin Settings](docs/plugin-settings.md)
+- [Control Panel Section](docs/cp-section.md)
+- [Front-End Resources](docs/resources.md)
+- [Services](docs/services.md)
+- [Widget Types](docs/widget-types.md)
+- [Field Types](docs/field-types.md)
+- [Volume Types](docs/volume-types.md)
+- [Utility Types](docs/utility-types.md)
+- [Element Types](docs/element-types.md)
+- [Element Action Types](docs/element-action-types.md)
+- [Plugin Migrations](docs/plugin-migrations.md)
