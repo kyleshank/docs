@@ -3,16 +3,16 @@ Craft 3 Documentation
 
 ## Introduction
 
-- [About Craft CMS](introduction.md)
-- [Code of Conduct](coc.md)
-- [Upgrading from Craft 2](upgrade.md)
+- [docs/About Craft CMS](introduction.md)
+- [docs/Code of Conduct](coc.md)
+- [docs/Upgrading from Craft 2](upgrade.md)
 
 ## Getting Started
 
-- [Server Requirements](requirements.md)
-- [Installation](installation.md)
-- [Configuration](configuration.md)
-- [Directory Structure](directory-structure.md)
+- [docs/Server Requirements](requirements.md)
+- [docs/Installation](installation.md)
+- [docs/Configuration](configuration.md)
+- [docs/Directory Structure](directory-structure.md)
 
 ## Core Concepts
 
@@ -32,18 +32,18 @@ Craft 3 Documentation
 
 ## Plugin Development
 
-- [Intro to Plugin Dev](plugin-intro.md)
-- [Coding Guidelines](coding-guidelines.md)
-- [Updating Plugins for Craft 3](updating-plugins.md)
-- [Changelogs and Updates](changelogs-and-updates.md)
-- [Plugin Settings](plugin-settings.md)
-- [Control Panel Section](cp-section.md)
-- [Front-End Resources](resources.md)
-- [Services](services.md)
-- [Widget Types](widget-types.md)
-- [Field Types](field-types.md)
-- [Volume Types](volume-types.md)
-- [Utility Types](utility-types.md)
-- [Element Types](element-types.md)
-- [Element Action Types](element-action-types.md)
-- [Plugin Migrations](plugin-migrations.md)
+- [docs/Intro to Plugin Dev](plugin-intro.md)
+- [docs/Coding Guidelines](coding-guidelines.md)
+- [docs/Updating Plugins for Craft 3](updating-plugins.md)
+- [docs/Changelogs and Updates](changelogs-and-updates.md)
+- [docs/Plugin Settings](plugin-settings.md)
+- [docs/Control Panel Section](cp-section.md)
+- [docs/Front-End Resources](resources.md)
+- [docs/Services](services.md)
+- [docs/Widget Types](widget-types.md)
+- [docs/Field Types](field-types.md)
+- [docs/Volume Types](volume-types.md)
+- [docs/Utility Types](utility-types.md)
+- [docs/Element Types](element-types.md)
+- [docs/Element Action Types](element-action-types.md)
+- [docs/Plugin Migrations](plugin-migrations.md)
