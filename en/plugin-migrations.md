@@ -24,7 +24,7 @@ Then run the following command to generate a new migration file for your plugin 
 
 Enter `yes` at the prompt, and a new migration file will be created in a `migrations/` subfolder within your plugin’s source directory.
 
-The migration file contains a class with two methods: `safeUp()` and `saveDown()`. `safeUp()` is where you should put the main migration code. If you want to make it possible to revert your migration, `safeDown()` is where the reversion code goes.
+The migration file contains a class with two methods: `safeUp()` and `safeDown()`. `safeUp()` is where you should put the main migration code. If you want to make it possible to revert your migration, `safeDown()` is where the reversion code goes.
 
 ### Logging
 
