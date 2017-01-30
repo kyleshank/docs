@@ -28,6 +28,7 @@ Craft 3 Documentation
 - Searching
 - Sites and Localization
 - Templates
+- [Element Queries](en/element-queries.md)
 - [Content Migrations](en/content-migrations.md)
 
 ## Plugin Development
