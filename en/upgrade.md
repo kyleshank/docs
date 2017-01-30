@@ -476,6 +476,8 @@ Asset        | `source`                 | `volume`
 Asset        | `sourceId`               | `volumeId`
 Matrix Block | `ownerLocale`            | `ownerSite` or `ownerSiteId`
 
+Also note that the `limit` param is now set to `null` (no limit) by default, rather than 100.
+
 ### Methods
 
 The following methods have been removed:
