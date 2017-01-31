@@ -154,7 +154,7 @@ In your terminal, go to your Craft project’s `plugins/` folder and create a sy
 
 #### Set your plugin up as a Composer dependency
 
-Composer supports a [`path` repository type][path] repository type, which can be used to symlink your plugin into the `vendor/` folder right alongside your project’s other dependencies (like Craft itself). This is the best way to go if your plugin has any of its own dependencies, as Composer will still load those into the `vendor` folder like normal.
+Composer supports a [`path` repository type][path], which can be used to symlink your plugin into the `vendor/` folder right alongside your project’s other dependencies (like Craft itself). This is the best way to go if your plugin has any of its own dependencies, as Composer will still load those into the `vendor` folder like normal.
 
 To set this up, open your Craft project’s `composer.json` file and add a new `path` repository record, pointed at your plugin’s root directory.
 
