@@ -60,6 +60,7 @@ Use this template as a starting point for your `composer.json` file:
 {
   "name": "package/name",
   "description": "Your plugin’s package description",
+  "version": "1.0.0",
   "type": "craft-plugin",
   "minimum-stability": "dev",
   "require": {
@@ -108,6 +109,8 @@ Here’s a full list of the properties that can go in that `extra` object:
 - `components` – Object defining any [component configs] that should be present on the plugin.
 
 > {note} Don’t include `composer/installers` as a Composer dependency.
+
+> {tip} While not strictly required by Composer, we recommend you explicitly set the `version` in your `composer.json` because it makes a couple things easier on your when developing the plugin. Don’t forget to keep it updated though!
 
 ### Primary Plugin Class
 
