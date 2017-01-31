@@ -55,7 +55,9 @@ Once everything’s in order, follow these steps to update Craft:
 
 3. Then run the following command to load Craft 3 (this will take a few minutes):
 
-        composer require craftcms/cms
+        composer require craftcms/cms:~3.0.0-beta.1
+
+    > {tip} If Composer complains that your system doesn’t have PHP 7 installed, but you know it’s not an issue because Craft will run with a different PHP install (e.g. through MAMP or Vagrant), use the `--ignore-platform-reqs` flag. 
 
 4. Then run the following command to install the Craft plugin installer for Composer:
 
