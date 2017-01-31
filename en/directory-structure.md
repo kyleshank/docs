@@ -40,6 +40,10 @@ This is where all of your Composer dependencies go, including Craft itself, and 
 
 This directory represents your web root.
 
+#### `.env`
+
+This is your [PHP dotenv](https://github.com/vlucas/phpdotenv) `.env` configuration file. It defines sensitive or environment-specific config values that don’t make sense to commit to version control.
+
 #### `.env.example`
 
 This is your [PHP dotenv](https://github.com/vlucas/phpdotenv) `.env` file template. It should be used as a starting point for any actual `.env` files, stored alongside it but out of version control on each of the environments your Craft project is running in.
