@@ -40,7 +40,6 @@ use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
 use yii\base\Event;
 
-
 public function init()
 {
     Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event) {
