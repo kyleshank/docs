@@ -36,14 +36,15 @@ At a minimum, that template should extend Craft’s `_layouts/cp` layout templat
 Alternatively, you can route requests to `/admin/plugin-handle` to a controller action (or a different template) by registering a Control Panel route from your plugin’s `init()` method:
 
 ```php
+use craft\events\RegisterUrlRulesEvent;
+use craft\web\UrlManager;
+use yii\base\Event;
+
+
 public function init()
 {
-    yii\base\Event::on(
-        craft\web\UrlManager::class,
-        craft\web\UrlManager::EVENT_REGISTER_CP_URL_RULES,
-        function(craft\events\RegisterUrlRulesEvent $event) {
-            $event->rules['plugin-handle'] = 'plugin-handle/foo/bar';
-        }
-    );
+    Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event) {
+        $event->rules['plugin-handle'] = 'plugin-handle/foo/bar';
+    });
 }
 ```
