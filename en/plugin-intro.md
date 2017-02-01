@@ -122,8 +122,6 @@ Use this template as a starting point for your `Plugin.php` file:
 <?php
 namespace ns\prefix;
 
-use Craft;
-
 class Plugin extends \craft\base\Plugin
 {
     public function init()
