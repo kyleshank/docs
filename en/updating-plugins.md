@@ -166,8 +166,8 @@ craft()->on('elements.beforeSaveElement', $callback);
 There is no direct equivalent in Craft 3, partly because `Craft::$app->on()` is already a thing (`yii\base\Component::on()`), and partly because Yii 2 already provides a nice solution for registering events on classes regardless of whether they’ve been instantiated yet, and it works for more than just services: [class-level event handlers](http://www.yiiframework.com/doc-2.0/guide-concept-events.html#class-level-event-handlers).
 
 ```php
-use yii\base\Event;
 use craft\services\Elements;
+use yii\base\Event;
 
 Event::on(Elements::class, Elements::EVENT_BEFORE_SAVE_ELEMENT, $callback);
 ```
@@ -177,9 +177,9 @@ In addition to services, you can use class-level event handlers for components t
 For example, if you want to be notified every time a Matrix field is saved, you could do this:
 
 ```php
-use yii\base\Event;
 use craft\events\ModelEvent;
 use craft\fields\Matrix;
+use yii\base\Event;
 
 Event::on(Matrix::class, Matrix::EVENT_AFTER_SAVE, function(ModelEvent $event) {
     // ...
@@ -207,9 +207,9 @@ public function addRichTextLinkOptions()
 }
 
 // New:
-use yii\base\Event;
-use craft\fields\RichText;
 use craft\events\RegisterRichTextLinkOptionsEvent;
+use craft\fields\RichText;
+use yii\base\Event;
 
 Event::on(RichText::class, RichText::EVENT_REGISTER_LINK_OPTIONS, function(RegisterRichTextLinkOptionsEvent $event) {
     $event->linkOptions[] = [
@@ -250,9 +250,9 @@ public function addUserAdministrationOptions(UserModel $user)
 }
 
 // New:
-use yii\base\Event;
 use craft\controllers\UsersController;
 use craft\events\RegisterUserActionsEvent;
+use yii\base\Event;
 
 Event::on(UsersController::class, UsersController::EVENT_REGISTER_USER_ACTIONS, function(RegisterUserActionsEvent $event) {
     if ($event->user->isCurrent) {
@@ -276,9 +276,9 @@ public function getResourcePath($path)
 }
 
 // New:
-use yii\base\Event;
-use craft\services\Resources;
 use craft\events\ResolveResourcePathEvent;
+use craft\services\Resources;
+use yii\base\Event;
 
 Event::on(Resources::class, Resources::EVENT_RESOLVE_RESOURCE_PATH, function(ResolveResourcePathEvent $event) {
     if (strpos($event->uri, 'myplugin/') === 0) {
@@ -305,9 +305,9 @@ public function modifyCpNav(&$nav)
 }
 
 // New:
-use yii\base\Event;
-use craft\web\twig\variables\Cp;
 use craft\events\RegisterCpNavItemsEvent;
+use craft\web\twig\variables\Cp;
+use yii\base\Event;
 
 Event::on(Cp::class, Cp::EVENT_REGISTER_CP_NAV_ITEMS, function(RegisterCpNavItemsEvent $event) {
     if (Craft::$app->user->identity->admin) {
@@ -331,9 +331,9 @@ public function registerCachePaths()
 }
 
 // New:
-use yii\base\Event;
-use craft\utilities\ClearCaches;
 use craft\events\RegisterCacheOptionsEvent;
+use craft\utilities\ClearCaches;
+use yii\base\Event;
 
 Event::on(ClearCaches::class, ClearCaches::EVENT_REGISTER_CACHE_OPTIONS, function(RegisterCacheOptionsEvent $event) {
     $event->options[] = [
@@ -354,9 +354,9 @@ public function registerEmailMessages()
 }
 
 // New:
-use yii\base\Event;
-use craft\services\EmailMessages;
 use craft\events\RegisterEmailMessagesEvent;
+use craft\services\EmailMessages;
+use yii\base\Event;
 
 Event::on(EmailMessages::class, EmailMessages::EVENT_REGISTER_MESSAGES, function(RegisterEmailMessagesEvent $event) {
     $event->messages[] = [
@@ -380,9 +380,9 @@ public function registerUserPermissions()
 }
 
 // New:
-use yii\base\Event;
-use craft\services\UserPermissions;
 use craft\events\RegisterUserPermissionsEvent;
+use craft\services\UserPermissions;
+use yii\base\Event;
 
 Event::on(UserPermissions::class, UserPermissions::EVENT_REGISTER_PERMISSIONS, function(RegisterUserPermissionsEvent $event) {
     $event->permissions[Craft::t('vices', 'Vices')] = [
@@ -404,9 +404,9 @@ public function getCpAlerts($path, $fetch)
 }
 
 // New:
-use yii\base\Event;
-use craft\helpers\Cp;
 use craft\events\RegisterCpAlertsEvent;
+use craft\helpers\Cp;
+use yii\base\Event;
 
 Event::on(Cp::class, Cp::EVENT_REGISTER_ALERTS, function(RegisterCpAlertsEvent $event) {
     if (Craft::$app->config->get('devMode')) {
@@ -425,9 +425,9 @@ public function modifyAssetFilename($filename)
 }
 
 // New:
-use yii\base\Event;
-use craft\helpers\Assets;
 use craft\events\SetElementTableAttributeHtmlEvent;
+use craft\helpers\Assets;
+use yii\base\Event;
 
 Event::on(Assets::class, Assets::EVENT_SET_FILENAME, function(SetElementTableAttributeHtmlEvent $event) {
     $event->filename = 'KittensRule-'.$event->filename;
@@ -452,9 +452,9 @@ public function registerCpRoutes()
 }
 
 // New:
-use yii\base\Event;
-use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
+use craft\web\UrlManager;
+use yii\base\Event;
 
 Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event) {
     $event->rules['cocktails/new'] = ['template' => 'cocktails/_edit'];
@@ -475,9 +475,9 @@ public function registerSiteRoutes()
 }
 
 // New:
-use yii\base\Event;
-use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
+use craft\web\UrlManager;
+use yii\base\Event;
 
 Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_SITE_URL_RULES, RegisterUrlRulesEvent $event) {
     $event->rules['cocktails/new'] = ['template' => 'cocktails/_edit'];
@@ -500,10 +500,10 @@ public function getElementRoute(BaseElementModel $element)
 }
 
 // New:
-use yii\base\Event;
-use craft\elements\Entry;
 use craft\base\Element;
+use craft\elements\Entry;
 use craft\elements\SetElementRouteEvent;
+use yii\base\Event;
 
 Event::on(Entry::class, Element::EVENT_SET_ROUTE, function(SetElementRouteEvent $event) {
     /** @var Entry $entry */
@@ -534,9 +534,9 @@ public function addEntryActions($source)
 }
 
 // New:
-use yii\base\Event;
 use craft\elements\Entry;
 use craft\events\RegisterElementActionsEvent;
+use yii\base\Event;
 
 Event::on(Entry::class, Element::EVENT_REGISTER_ACTIONS, function(RegisterElementActionsEvent $event) {
     $event->actions[] = new MyElementAction();
@@ -553,10 +553,10 @@ public function modifyEntrySortableAttributes(&$attributes)
 }
 
 // New:
-use yii\base\Event;
-use craft\elements\Entry;
 use craft\base\Element;
+use craft\elements\Entry;
 use craft\events\RegisterElementSortOptionsEvent;
+use yii\base\Event;
 
 Event::on(Entry::class, Element::EVENT_REGISTER_SORT_OPTIONS, function(RegisterElementSortOptionsEvent $event) {
     $event->sortOptions['id'] = Craft::t('app', 'ID');
@@ -586,9 +586,9 @@ public function modifyEntrySources(&$sources, $context)
 }
 
 // New:
-use yii\base\Event;
 use craft\elements\Entry;
 use craft\events\RegisterElementSourcesEvent;
+use yii\base\Event;
 
 Event::on(Entry::class, Element::EVENT_REGISTER_SOURCES, function(RegisterElementSourcesEvent $event) {
     if ($event->context === 'index') {
@@ -620,9 +620,9 @@ public function defineAdditionalEntryTableAttributes()
 }
 
 // New:
-use yii\base\Event;
 use craft\elements\Entry;
 use craft\events\RegisterElementTableAttributesEvent;
+use yii\base\Event;
 
 Event::on(Entry::class, Element::EVENT_REGISTER_TABLE_ATTRIBUTES, function(RegisterElementTableAttributesEvent $event) {
     $event->tableAttributes['foo'] = ['label' => Craft::t('myplugin', 'Foo')];
@@ -642,10 +642,10 @@ public function getEntryTableAttributeHtml(EntryModel $entry, $attribute)
 }
 
 // New:
-use yii\base\Event;
-use craft\elements\Entry;
 use craft\base\Element;
+use craft\elements\Entry;
 use craft\events\SetElementTableAttributeHtmlEvent;
+use yii\base\Event;
 
 Event::on(Entry::class, Element::EVENT_SET_TABLE_ATTRIBUTE_HTML, function(SetElementTableAttributeHtmlEvent $event) {
     if ($event->attribute === 'price') {
