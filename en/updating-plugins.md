@@ -31,6 +31,7 @@ The end result is a faster, leaner, and much more elegant codebase for core deve
   - [Controller Action Templates](#controller-action-templates)
   - [Rendering Plugin Templates on Front End Requests](#rendering-plugin-templates-on-front-end-requests)
 - [Resource Requests](#resource-requests)
+- [Registering Arbitrary HTML](#registering-arbitrary-html)
 - [Writing an Upgrade Migration](#writing-an-upgrade-migration)
   - [Setting it up](#setting-it-up)
   - [Component Class Names](#component-class-names)
@@ -725,6 +726,24 @@ Craft::$app->view->setTemplateMode($oldMode);
 ## Resource Requests
 
 Resource requests (requests to URLs created by `UrlHelper::resourceUrl()`) no longer serve files within Craft’s or plugins’ `resources/` directories. See [Front End Resources](resources.md) for information about working with front end resources.
+
+## Registering Arbitrary HTML
+
+If you need to include arbitrary HTML somewhere on the page, use the `beginBody` or `endBody` events on the View component:
+
+```php
+// Old:
+craft()->templates->includeFootHtml($html);
+
+// New:
+use craft\web\View;
+use yii\base\Event;
+
+Event::on(View::class, View::EVENT_END_BODY, function(Event $event) {
+    // $html = ...
+    echo $html;
+});
+```
 
 ## Writing an Upgrade Migration
 
