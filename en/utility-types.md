@@ -9,7 +9,7 @@ You can refer to Craft’s own utility classes for examples. They are located in
 
 ## Registering Custom Utility Types
 
-Once you have created your utility class, you will need to register it with the Utilities service, so Craft will know about it when populating the list of available utility types: 
+Once you have created your utility class, you will need to register it with the Utilities service, so Craft will know about it when populating the list of available utility types:
 
 ```php
 <?php

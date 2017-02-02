@@ -9,7 +9,7 @@ You can refer to Craft’s own field classes for examples. They are located in `
 
 ## Registering Custom Field Types
 
-Once you have created your field class, you will need to register it with the Fields service, so Craft will know about it when populating the list of available field types: 
+Once you have created your field class, you will need to register it with the Fields service, so Craft will know about it when populating the list of available field types:
 
 ```php
 <?php

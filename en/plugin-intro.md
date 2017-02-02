@@ -26,7 +26,7 @@ The main benefits of Craft Plugins over Yii Modules are:
 
 ## Getting Started
 
-> {tip} Use [pluginfactory.io] to create your plugin’s scaffolding with just a few clicks.  
+> {tip} Use [pluginfactory.io] to create your plugin’s scaffolding with just a few clicks.
 
 ### Preparation
 

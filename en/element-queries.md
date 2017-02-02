@@ -1,7 +1,7 @@
 Element Queries
 ===============
 
-Element queries are [query builders](http://www.yiiframework.com/doc-2.0/guide-db-query-builder.html) that are tuned for fetching elements in Craft. They have several custom parameters, and they abstract away all the complexities of the actual SQL query needed to fetch the elements. Rather than raw data, they return element models. 
+Element queries are [query builders](http://www.yiiframework.com/doc-2.0/guide-db-query-builder.html) that are tuned for fetching elements in Craft. They have several custom parameters, and they abstract away all the complexities of the actual SQL query needed to fetch the elements. Rather than raw data, they return element models.
 
 ## Creating Element Queries
 
@@ -280,7 +280,7 @@ $uri = Entry::find()
 
 ### Aggregate Methods
 
-The following methods will run an aggregate method on the first column of matching elements, and return the result: 
+The following methods will run an aggregate method on the first column of matching elements, and return the result:
 
 - `sum()` – Returns the sum of all the values in the first column
 - `average()` – Returns the average number of all the values in the first column

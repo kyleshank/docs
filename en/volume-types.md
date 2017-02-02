@@ -9,7 +9,7 @@ You can refer to Craft’s own volume classes for examples. They are located in 
 
 ## Registering Custom Volume Types
 
-Once you have created your volume class, you will need to register it with the Volumes service, so Craft will know about it when populating the list of available volume types: 
+Once you have created your volume class, you will need to register it with the Volumes service, so Craft will know about it when populating the list of available volume types:
 
 ```php
 <?php

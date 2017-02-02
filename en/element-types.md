@@ -62,12 +62,12 @@ use craft\base\Element;
 class Product extends Element
 {
     /**
-     * @var int Price 
+     * @var int Price
      */
     public $price = 0;
 
     /**
-     * @var string Currency code 
+     * @var string Currency code
      */
     public $currency;
 
@@ -93,7 +93,7 @@ if (!$this->db->tableExists('{{%products}}')) {
         'uid' => $this->uid(),
         'PRIMARY KEY(id)',
     ]);
-    
+
     // give it a FK to the elements table
     $this->addForeignKey(
         $this->db->getForeignKeyName('{{%products}}', 'id'),
@@ -101,7 +101,7 @@ if (!$this->db->tableExists('{{%products}}')) {
 }
 ```
 
-> {note} If you’re adding this as an update to an existing plugin, you will need to create a new normal migration as well, and copy the same code into it. 
+> {note} If you’re adding this as an update to an existing plugin, you will need to create a new normal migration as well, and copy the same code into it.
 
 Install the plugin now, so your database table will be created.
 
@@ -126,7 +126,7 @@ public function afterSave(bool $isNew)
             ], ['id' => $this->id])
             ->execute();
     }
-    
+
     parent::afterSave($isNew);
 }
 ```
@@ -272,7 +272,7 @@ public function getEditorHtml(): string
             'required' => true
         ]
     ]);
-    
+
     // ...
 
     $html .= parent::getEditorHtml();
@@ -308,7 +308,7 @@ Craft::$app->getFields()->saveLayout($fieldLayout);
 ```
 
 Rather than only having one field layout for your entire element type, you can also manage multiple field layouts, if needed. For example, entry field layouts are defined for each entry type; asset field layouts are defined for each asset volume, etc.
- 
+
 You can set that up however you want. When saving field layouts, make sure to delete the old one by its ID rather than by your element type (`craft\services\Fields::deleteLayoutById()`), and store new field layouts’ IDs in the database somewhere.
 
 As far as your element class is concerned, you will need to override the `getFieldLayout()` method, so elements know which field layout they should be associated with:
@@ -404,7 +404,7 @@ protected static function defineSources(string $context = null): array
 }
 ```
 
-When a source is selected, Craft will configure your [element query](#element-query-class) with the values listed in the source’s `criteria` array. 
+When a source is selected, Craft will configure your [element query](#element-query-class) with the values listed in the source’s `criteria` array.
 
 ## Index Page
 
@@ -463,7 +463,7 @@ protected static function defineTableAttributes(): array
 
 > {note} The first attribute you list here is a special case. It defines the header for the first column in the table view, which is the only one admins can’t remove. Its values will be the element representations, which is also not customizable.
 
-If it’s a big list, you can also limit which columns should be visible by default for new [sources](#sources) by adding a protected `defineDefaultTableAttributes()` method to your element class: 
+If it’s a big list, you can also limit which columns should be visible by default for new [sources](#sources) by adding a protected `defineDefaultTableAttributes()` method to your element class:
 
 ```php
 protected static function defineDefaultTableAttributes(string $source): array
@@ -717,7 +717,7 @@ use craft\db\Query;
 use craft\elements\User;
 use craft\helpers\ArrayHelper;
 
-// ... 
+// ...
 
 public static function eagerLoadingMap(array $sourceElements, string $handle)
 {

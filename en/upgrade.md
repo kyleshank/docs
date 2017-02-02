@@ -58,7 +58,7 @@ Once everything’s in order, follow these steps to update Craft:
 
         composer require craftcms/cms:~3.0.0-beta.1
 
-    > {tip} If Composer complains that your system doesn’t have PHP 7 installed, but you know it’s not an issue because Craft will run with a different PHP install (e.g. through MAMP or Vagrant), use the `--ignore-platform-reqs` flag. 
+    > {tip} If Composer complains that your system doesn’t have PHP 7 installed, but you know it’s not an issue because Craft will run with a different PHP install (e.g. through MAMP or Vagrant), use the `--ignore-platform-reqs` flag.
 
 4. Then run the following command to install the Craft plugin installer for Composer:
 
@@ -141,7 +141,7 @@ return [
 
 #### Asset Volume Settings
 
-Craft 3 makes it possible to completely override all asset volume settings, not just the File System Path and URL settings for “Local” volumes. See [Overriding Volume Settings](configuration.md#overriding-volume-settings) on the Configuration page for more info. 
+Craft 3 makes it possible to completely override all asset volume settings, not just the File System Path and URL settings for “Local” volumes. See [Overriding Volume Settings](configuration.md#overriding-volume-settings) on the Configuration page for more info.
 
 ### Redactor Configs
 
@@ -617,7 +617,7 @@ The `csrfInput()` function is provided as a shortcut.
 
 ## Memcache
 
-If you are using `memcache` for your [cacheMethod](https://craftcms.com/docs/config-settings#cacheMethod) config setting and you did not have `useMemcached` set to `true` in your `craft/config/memcache.php` config file, you'll need to install memcached on your server.  Craft 3 will only use it because there is not a PHP 7 compatible version of memcache available. 
+If you are using `memcache` for your [cacheMethod](https://craftcms.com/docs/config-settings#cacheMethod) config setting and you did not have `useMemcached` set to `true` in your `craft/config/memcache.php` config file, you'll need to install memcached on your server.  Craft 3 will only use it because there is not a PHP 7 compatible version of memcache available.
 
 ## Plugins
 

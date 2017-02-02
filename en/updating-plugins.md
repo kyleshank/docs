@@ -693,7 +693,7 @@ Craft::$app->view->renderTemplate('pluginHandle/path/to/template', $variables);
 ### Controller Action Templates
 
 Controllers’ `renderTemplate()` method hasn’t changed much. The only difference is that it used to output the template and end the request for you, whereas now it returns the rendered template, which your controller action should return.
- 
+
 ```php
 // Old:
 $this->renderTemplate('pluginHandle/path/to/template', $variables);
@@ -705,7 +705,7 @@ return $this->renderTemplate('pluginHandle/path/to/template', $variables);
 ### Rendering Plugin Templates on Front End Requests
 
 If you want to render a plugin-supplied template on a front-end request, you need to set the View component to the CP’s template mode:
- 
+
 ```php
 // Old:
 $oldPath = craft()->templates->getTemplatesPath();

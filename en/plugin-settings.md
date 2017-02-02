@@ -63,7 +63,7 @@ class Settings extends \craft\base\Model
 {
     public $foo = 'defaultFooValue';
     public $bar = 'defaultBarValue';
-    
+
     public function rules()
     {
         return [
@@ -119,14 +119,14 @@ class Plugin extends \craft\base\Plugin
             'settings' => $this->getSettings()
         ]);
     }
-    
+
     // ...
 }
 ```
 
 With all that in place, your plugin will now get its own icon on the Settings page, and a cog icon in its row on the Settings → Plugins page, which will link to `/admin/settings/plugin-handle`.
 
-> {tip} That `plugin-handle` segment is your plugin handle, converted from `camelCase` to `kebab-case`.  
+> {tip} That `plugin-handle` segment is your plugin handle, converted from `camelCase` to `kebab-case`.
 
 ### Advanced Settings Pages
 

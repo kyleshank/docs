@@ -42,7 +42,7 @@ If you’re using APC, Database, File, or Memcache(d) data caching drivers (per 
 ## Guzzle Config
 
 Craft uses [Guzzle 6](http://docs.guzzlephp.org/en/latest/) whenever creating HTTP requests, such as:
- 
+
 - when checking for Craft updates
 - when sending in a support request from the Craft Support widget
 - when loading RSS feeds from the Feeds widget
@@ -119,7 +119,7 @@ These `.json` files must contain **valid JSON**. That means:
 
 ## Application Config
 
-You can customize Craft’s entire [application configuration](http://www.yiiframework.com/doc-2.0/guide-structure-applications.html#application-configurations) from `config/app.php`. Any items returned by that array will get merged into the main application configuration array. 
+You can customize Craft’s entire [application configuration](http://www.yiiframework.com/doc-2.0/guide-structure-applications.html#application-configurations) from `config/app.php`. Any items returned by that array will get merged into the main application configuration array.
 
 ### Mailer Component
 

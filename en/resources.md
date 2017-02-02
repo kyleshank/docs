@@ -79,7 +79,7 @@ use ns\prefix\FooBundle;
 public function actionFoo()
 {
     $this->view->registerAssetBundle(FooBundle::class);
-    
+
     return $this->renderTemplate('pluginHandle/foo');
 }
 ```

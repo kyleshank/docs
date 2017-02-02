@@ -9,7 +9,7 @@ You can refer to Craft’s own widget classes for examples. They are located in 
 
 ## Registering Custom Widget Types
 
-Once you have created your widget class, you will need to register it with the Dashboard service, so Craft will know about it when populating the list of available widget types: 
+Once you have created your widget class, you will need to register it with the Dashboard service, so Craft will know about it when populating the list of available widget types:
 
 ```php
 <?php
