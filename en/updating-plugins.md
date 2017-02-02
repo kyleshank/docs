@@ -706,7 +706,7 @@ return $this->renderTemplate('pluginHandle/path/to/template', $variables);
 
 If you want to render a plugin-supplied template on a front-end request, you need to set the View component to the CP’s template mode:
  
-```
+```php
 // Old:
 $oldPath = craft()->templates->getTemplatesPath();
 $newPath = craft()->path->getPluginsPath().'pluginhandle/templates/';
