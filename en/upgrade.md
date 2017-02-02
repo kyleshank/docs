@@ -20,6 +20,7 @@ Upgrading from Craft 2
 - [Models](#models)
 - [Locales](#locales)
 - [Request Params](#request-params)
+- [Memcache](#memcache)
 - [Plugins](#plugins)
 
 ## Updating Craft CMS
